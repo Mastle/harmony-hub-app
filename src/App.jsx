@@ -6,7 +6,7 @@ import Register from './components/Register'
 import SongList from './components/SongList'
 import Player from './components/Player'
 
-export default function Home() {
+export default function App() {
   const [user, setUser] = useState(null)
   const [view, setView] = useState('login')
   const [currentSong, setCurrentSong] = useState(null)
@@ -23,7 +23,7 @@ export default function Home() {
     setUser(null)
   }
 
-  if (!user) {
+  if (!user) { 
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <div className="bg-white p-8 rounded-lg shadow-md w-96">
@@ -68,10 +68,10 @@ export default function Home() {
   )
 }
  /* 
- - Current step: First, Create the github repo for this project
- - Then, Make sure you know exactly how each and every component works
- - See if there are any feature or changes you want to add right now - try to use Shadcn
+ - Current step: 
+ - ready to fully test the song streaming feature!
+ - See if there are any feature or changes you want to add right now - try to use Shadcn with daisyUI!
  - Add Firebase
- - Time to Test deploy! 
+ - Time to Test deploy
  - Next, it's time to find a nice design framework
  */
