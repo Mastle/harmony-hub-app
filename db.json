@@ -17,7 +17,7 @@
       "title": "Serenity",
       "artist": "Harmony Collective",
       "coverUrl": "/placeholder.svg?height=100&width=100",
-      "audioUrl": "https://example.com/serenity.mp3"
+      "audioUrl": "./still.mp3"
     },
     {
       "id": "2",

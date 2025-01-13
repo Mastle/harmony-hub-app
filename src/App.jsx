@@ -69,9 +69,17 @@ export default function App() {
 }
  /* 
  - Current step: 
- - ready to fully test the song streaming feature!
- - See if there are any feature or changes you want to add right now - try to use Shadcn with daisyUI!
- - Add Firebase
+ - Steps that need to be taken for a viable MVP - try to use Shadcn with daisyUI as much as possible!
+   -- Fix all the UI problems. (identify what each page really needs, utilize daisyUI to have an ok first design. IMPORTANT: it's ok if it looks like ass, we're going for publicly testing all the basic functionalities at this point, hmm ok?)
+   -- and then I'll add the easiest experimental instrument
+   -- make it possible to have playlist and favorite songs
+   -- Backend (authentication system and songs) need to be connected to firebase.
+   -- Get some real life people to test the extra feature of streaming music. 
+       Just get them to test it when they're out by adding their favorite playlist 
+       to see the streaming is solid. (Ask what their favorite all time album that they might still listen to right now is!)
+   -- (at this point this could be a nice v0/alpha release, then go on to add the other features -> )
+   -- See if you can gamify this whole thing/add a super cute UI touch up to attract users
+   -- maybe add the scoring system right from now?
  - Time to Test deploy
  - Next, it's time to find a nice design framework
  */

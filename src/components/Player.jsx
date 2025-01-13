@@ -39,7 +39,6 @@ export default function Player({ song }) {
           >
             {isPlaying ? 'Pause' : 'Play'}
           </button>
-          {console.log(song.audioUrl)}
           <audio ref={audioRef} src={song.audioUrl} />
         </div>
       </div>
