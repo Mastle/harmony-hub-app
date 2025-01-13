@@ -10,7 +10,9 @@ export default function Login({ setUser }) {
     e.preventDefault()
     const response = await fetch('http://localhost:3001/users')
     const users = await response.json()
-    const user = users.find(u => u.email === email && u.password === password)
+    const emailLowerCase = email.toLowerCase()
+    const passwordLowerCase = password.toLowerCase()
+    const user = users.find(u => u.email === emailLowerCase && u.password === passwordLowerCase)
     if (user) {
       localStorage.setItem('user', JSON.stringify(user))
       setUser(user)
