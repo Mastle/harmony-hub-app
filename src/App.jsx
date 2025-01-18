@@ -25,9 +25,10 @@ export default function App() {
 
   if (!user) { 
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="bg-white p-8 rounded-lg shadow-md w-96">
-          <h1 className="text-2xl font-bold mb-6 text-center">Harmony Hub</h1>
+      <div className="gap-20 bg-base-100 min-h-screen flex items-center justify-center flex-col sm:flex-row">
+        <p className="text-2xl">welcome to the best digital music academy in the world</p>
+        <div className="bg-primary-content border border-white p-8 rounded-lg shadow-md w-96">
+          <h1 className="pacifico-regular text-5xl font-bold mb-6 text-center">Harmony Hub</h1>
           {view === 'login' ? (
             <Login setUser={setUser} />
           ) : (
@@ -37,7 +38,7 @@ export default function App() {
             {view === 'login' ? "Don't have an account? " : "Already have an account? "}
             <button
               onClick={() => setView(view === 'login' ? 'register' : 'login')}
-              className="text-blue-500 hover:underline"
+              className="btn btn-secondary ms-6"
             >
               {view === 'login' ? 'Register' : 'Login'}
             </button>
@@ -70,9 +71,16 @@ export default function App() {
  /* 
  - Current step: 
  - Steps that need to be taken for a viable MVP - try to use Shadcn with daisyUI as much as possible!
-   -- Fix all the UI problems. (identify what each page really needs, utilize daisyUI to have an ok first design. IMPORTANT: it's ok if it looks like ass, we're going for publicly testing all the basic functionalities at this point, hmm ok?)
-   -- and then I'll add the easiest experimental instrument
+   -- Designining the UI:
+      --- Definitely going with daisyUI (I'll try materialUI (or a better alternative) for the online store project)
+      --- Just making everything acceptable for now, the current purpose of this project is to look nice on my portfolio and be scalable if the opportunity is there
+      --- every single element needs to be redesigned. Thankfully, daisyUI has made that super easy and fun
+      --- currently designing the landing page! 
+      --- planning to go with Poppins and Pacifico for the fonts
+       
+   -- and then I'll add the easiest experimental instrument (I'm getting told it's a drumpad but it seems like I need to speak to someone who knows more about music...)
    -- make it possible to have playlist and favorite songs
+   -- make sure songs are searchable and filterable
    -- Backend (authentication system and songs) need to be connected to firebase.
    -- Get some real life people to test the extra feature of streaming music. 
        Just get them to test it when they're out by adding their favorite playlist 
