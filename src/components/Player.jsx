@@ -23,7 +23,7 @@ export default function Player({ song }) {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white shadow-md p-4">
+    <div className="fixed bottom-0 left-0 right-0 bg-secondary-content shadow-md p-4">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <img className="h-16 w-16 rounded" src={song.coverUrl} alt={song.title} />

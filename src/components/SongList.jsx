@@ -16,7 +16,7 @@ export default function SongList({ setCurrentSong }) {
       <h2 className="text-primary text-xl font-bold p-4">Songs</h2>
       <ul className="divide-y divide-gray-200">
         {songs.map(song => (
-          <li key={song.id} className="p-4 hover:bg-gray-50 cursor-pointer" onClick={() => setCurrentSong(song)}>
+          <li key={song.id} className="p-4 hover:bg-secondary cursor-pointer" onClick={() => setCurrentSong(song)}>
             <div className="flex items-center space-x-4">
               <div className="flex-shrink-0">
                 <img className="h-10 w-10 rounded" src={song.coverUrl} alt={song.title} />
