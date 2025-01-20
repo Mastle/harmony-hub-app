@@ -12,8 +12,8 @@ export default function SongList({ setCurrentSong }) {
   }, [])
 
   return (
-    <div className="bg-white shadow-md rounded-lg overflow-hidden">
-      <h2 className="text-xl font-bold p-4 bg-gray-100">Songs</h2>
+    <div className="bg-primary-content shadow-md rounded-lg overflow-hidden">
+      <h2 className="text-primary text-xl font-bold p-4">Songs</h2>
       <ul className="divide-y divide-gray-200">
         {songs.map(song => (
           <li key={song.id} className="p-4 hover:bg-gray-50 cursor-pointer" onClick={() => setCurrentSong(song)}>

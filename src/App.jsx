@@ -17,6 +17,7 @@ export default function App() {
       setUser(JSON.parse(loggedInUser))
     }
   }, [])
+  
 
   const handleLogout = () => {
     localStorage.removeItem('user')
@@ -49,8 +50,8 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <header className="bg-white shadow-md p-4">
+    <div className="min-h-screen bg-base-100">
+      <header className="pacifico-regular  bg-base-100 shadow-md p-4 border-b ">
         <div className="container mx-auto flex justify-between items-center">
           <h1 className="text-2xl font-bold">Harmony Hub</h1>
           <button
@@ -72,11 +73,7 @@ export default function App() {
  - Current step: 
  - Steps that need to be taken for a viable MVP - try to use Shadcn with daisyUI as much as possible!
    -- Designining the UI:
-      --- Definitely going with daisyUI (I'll try materialUI (or a better alternative) for the online store project)
-      --- Just making everything acceptable for now, the current purpose of this project is to look nice on my portfolio and be scalable if the opportunity is there
-      --- every single element needs to be redesigned. Thankfully, daisyUI has made that super easy and fun
-      --- currently designing the landing page! 
-      --- planning to go with Poppins and Pacifico for the fonts
+
        
    -- and then I'll add the easiest experimental instrument (I'm getting told it's a drumpad but it seems like I need to speak to someone who knows more about music...)
    -- make it possible to have playlist and favorite songs
