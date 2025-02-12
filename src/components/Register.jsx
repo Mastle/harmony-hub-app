@@ -23,7 +23,8 @@ export default function Register({ setUser }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+        <label htmlFor="email" 
+        className="block text-sm font-medium text-green-400">Email</label>
         <input
           type="email"
           id="email"
@@ -34,7 +35,9 @@ export default function Register({ setUser }) {
         />
       </div>
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+        <label htmlFor="password"
+         className="block text-sm font-medium text-green-400">
+          Password</label>
         <input
           type="password"
           id="password"
@@ -46,7 +49,8 @@ export default function Register({ setUser }) {
       </div>
       <button
         type="submit"
-        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white 
+        bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
       >
         Register
       </button>
