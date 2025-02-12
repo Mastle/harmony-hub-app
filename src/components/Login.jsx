@@ -38,8 +38,7 @@ export default function Login({ setUser }) {
            rounded-md shadow-sm
             focus:outline-none 
             focus:ring-blue-500 
-            focus:border-blue-500"
-        />
+            focus:border-blue-500" />
       </div>
       <div>
         <label htmlFor="password" className="block text-sm font-medium text-primary">Password</label>

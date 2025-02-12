@@ -7,8 +7,6 @@ import Player from './Player'
 const MusicPlayer = () => {
      const [currentSong, setCurrentSong] = useState(null)
 
-
-
   return (
     <>
       <SongList setCurrentSong={setCurrentSong}/>
