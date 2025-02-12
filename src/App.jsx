@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react'
 import Login from './components/Login'
 import Register from './components/Register'
-import SongList from './components/SongList'
-import Player from './components/Player'
 import Instrument from './components/Instrument'
 import MusicPlayer from './components/MusicPlayer'
 
@@ -64,16 +62,21 @@ export default function App() {
           </button>
         </div>
       </header>
-      {/* <main className="container mx-auto mt-8">
-        <Instrument/> */}
-        {/* <MusicPlayer/> */}
-      {/* </main> */}
+      <main className="container mx-auto mt-8">
+        <MusicPlayer/> 
+        <Instrument/> 
+       </main>
     </div>
   )
 }
  /* 
  - Current step: 
    -- Piano created. Reviewing the app to install the piano properly.
+    --- start with creating actual routes for routing the user to the music player page and also the instruments page separately.
+       (necessary feature for the music player: make it better by adding a note by note (graphical) analysis of how the most famous classical music tracks are played! 
+       the purpose of this feature is to provide better analysis of timeless tracks that can elevate the understanding of music for users - Real-Time Note Highlighting. 
+       Check the relevant readme file for this one)
+g    --- Add a "piano" card and then a "coming soon" instrument card to the "instruments" page 
     --- Style the piano as best as you can
     --- Features to add along side the virtual piano:
     --- Sheet Music or MIDI Export – Let users export their recorded melodies as MIDI files or simple sheet music (e.g., MusicXML).
