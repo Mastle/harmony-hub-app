@@ -72,9 +72,9 @@ export default function App() {
   )
 }
   /* 
- - step: 
-   -- Piano created. Reviewing the app to install the piano properly.
-   current step: --- start with creating actual routes for routing the user to the music player page and also the instruments page separately. 
+ - steps: 
+   --- (current step) design the homecards for redirecting the user to "Instruments" and "Music player" pages
+   --- start with creating actual routes for routing the user to the music player page and also the instruments page separately. 
    (only gonna use placeholderdesign assets in this phase. Once the app is finalized, I can go for an upgrade just as I did with ATproductions)
 g    --- Add a "piano" card and then a "coming soon" instrument card to the "instruments" page 
     --- Style the piano as best as you can
