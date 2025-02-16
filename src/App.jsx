@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react'
 import Login from './components/Login'
 import Register from './components/Register'
-import Instrument from './components/Instrument'
+import Instruments from './components/Instruments'
 import MusicPlayer from './components/MusicPlayer'
+import HomeCards from './components/HomeCards'
 
 
 export default function App() {
@@ -63,16 +64,17 @@ export default function App() {
         </div>
       </header>
       <main className="container mx-auto mt-8">
-        <MusicPlayer/> 
-        <Instrument/> 
+        <HomeCards/>
+        {/* <Instruments/> */}
        </main>
     </div>
   )
 }
- /* 
+  /* 
  - step: 
    -- Piano created. Reviewing the app to install the piano properly.
-   current step: --- start with creating actual routes for routing the user to the music player page and also the instruments page separately. (only gonna use placeholderdesign assets in this phase. Once the app is finalized, I can go for an upgrade just as I did with ATproductions)
+   current step: --- start with creating actual routes for routing the user to the music player page and also the instruments page separately. 
+   (only gonna use placeholderdesign assets in this phase. Once the app is finalized, I can go for an upgrade just as I did with ATproductions)
 g    --- Add a "piano" card and then a "coming soon" instrument card to the "instruments" page 
     --- Style the piano as best as you can
     --- Features to add along side the virtual piano:
