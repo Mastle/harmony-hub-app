@@ -70,12 +70,9 @@ export default function App() {
   )
 }
  /* 
- - Current step: 
+ - step: 
    -- Piano created. Reviewing the app to install the piano properly.
-    --- start with creating actual routes for routing the user to the music player page and also the instruments page separately.
-       (necessary feature for the music player: make it better by adding a note by note (graphical) analysis of how the most famous classical music tracks are played! 
-       the purpose of this feature is to provide better analysis of timeless tracks that can elevate the understanding of music for users - Real-Time Note Highlighting. 
-       Check the relevant readme file for this one)
+   current step: --- start with creating actual routes for routing the user to the music player page and also the instruments page separately. (only gonna use placeholderdesign assets in this phase. Once the app is finalized, I can go for an upgrade just as I did with ATproductions)
 g    --- Add a "piano" card and then a "coming soon" instrument card to the "instruments" page 
     --- Style the piano as best as you can
     --- Features to add along side the virtual piano:
@@ -83,7 +80,10 @@ g    --- Add a "piano" card and then a "coming soon" instrument card to the "ins
     --- Playback & Editing – Let users replay their recorded melodies and make basic edits (e.g., trimming, adjusting notes).
     --- Sharing & Collaboration – Allow users to share their recordings with others, either via a link or an in-app community
    -- Create the Dashboard page (after login, gives the user a choice between music player and instruments)
-  -- Before adding a player or free songs, allow users to store their own melodies on the server (start figuring out how to best stream the files from a firebase server from there) 
+  -- necessary feature for the music player: make it better by adding a note by note (graphical) analysis of how the most famous classical music tracks are played! 
+       the purpose of this feature is to provide better analysis of timeless tracks that can elevate the understanding of music for users - Real-Time Note Highlighting. 
+       Check the relevant readme file for this one)
+    ----  maybe allow users to store their own melodies on the server (start figuring out how to best stream the files from a firebase server from there) 
     --- add some free songs (firebase, see if you there is a way to send the file down in chunks from Firebase, will upgrade to a streaming server if it turns out to be the right choice for my career)
     --- add playlist and favorite songs functionality (firebase!)
    -- make sure songs are searchable and filterable 
@@ -104,4 +104,4 @@ g    --- Add a "piano" card and then a "coming soon" instrument card to the "ins
                 If not, go even deeper on frontend
  */
 
-      
+      /* An amazing digital music academy for learners, the best assistant and one-stop-shop for all the professionals' needs */
