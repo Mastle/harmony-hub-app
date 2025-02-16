@@ -3,7 +3,7 @@
 const HomeCards = () => {
   return (
     <section className="container">
-        ayoo
+       Howdy
      {/* Piano(instruments) card and Player(real-time note highlighting) card go here! */}
     </section>
   )

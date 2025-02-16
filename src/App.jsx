@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react'
 import Login from './components/Login'
 import Register from './components/Register'
-import Instruments from './components/Instruments'
-import MusicPlayer from './components/MusicPlayer'
+import Instruments from './components/Instruments/Instruments'
+import MusicPlayer from './components/Music/MusicPlayer'
 import HomeCards from './components/HomeCards'
 
 
@@ -66,6 +66,7 @@ export default function App() {
       <main className="container mx-auto mt-8">
         <HomeCards/>
         {/* <Instruments/> */}
+        {/* <MusicPlayer /> */}
        </main>
     </div>
   )
