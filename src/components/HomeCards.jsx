@@ -1,8 +1,13 @@
 'use client'
+import { Button } from './ui/button'
 
 const HomeCards = () => {
   return (
     <section className="container">
+      <div>
+        <h1>test button: </h1>
+        <Button className="bg-primary" >Click me</Button>
+      </div>
       <div className='container-xl lg:container m-auto'>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-lg'>
           <div className="p-6 rounded-lg shadow-md bg-accent">
