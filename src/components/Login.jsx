@@ -1,31 +1,38 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
+import { useState } from "react"
 
 export default function Login({ setUser }) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const response = await fetch('http://localhost:3001/users')
+    const response = await fetch("http://localhost:3001/users")
     const users = await response.json()
     const emailLowerCase = email.toLowerCase()
     const passwordLowerCase = password.toLowerCase()
-    const user = users.find(u => u.email === emailLowerCase && u.password === passwordLowerCase)
+    const user = users.find(
+      (u) => u.email === emailLowerCase && u.password === passwordLowerCase
+    )
     if (user) {
-      localStorage.setItem('user', JSON.stringify(user))
+      localStorage.setItem("user", JSON.stringify(user))
       setUser(user)
     } else {
-      alert('Invalid credentials')
+      alert("Invalid credentials")
     }
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="email" className="block 
-        text-sm font-medium text-primary">Email</label>
+        <label
+          htmlFor="email"
+          className="block 
+        text-sm font-medium text-primary"
+        >
+          Email
+        </label>
         <input
           type="email"
           id="email"
@@ -38,10 +45,16 @@ export default function Login({ setUser }) {
            rounded-md shadow-sm
             focus:outline-none 
             focus:ring-blue-500 
-            focus:border-blue-500" />
+            focus:border-blue-500"
+        />
       </div>
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-primary">Password</label>
+        <label
+          htmlFor="password"
+          className="block text-sm font-medium text-primary"
+        >
+          Password
+        </label>
         <input
           type="password"
           id="password"
@@ -65,4 +78,3 @@ export default function Login({ setUser }) {
     </form>
   )
 }
-

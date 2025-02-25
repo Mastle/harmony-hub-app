@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { CirclePlay, Piano } from "lucide-react";
+import { CirclePlay, Piano } from "lucide-react"
 
 const HomeCards = () => {
   return (
@@ -39,14 +39,16 @@ const HomeCards = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default HomeCards;
+export default HomeCards
 
 /* 
     current step(short overview):
-      - add react router and hook up the "intstruments" and "music player" to the routes 
+      - add react router and hook up the "intstruments" and "music player" to the routes (go!)
+        -- My code needs to be restructured according to react router's guidelines (or I could temporarily make the login component a child of the homepage component)
+        -- I must start with creating a Homepage
       - implement the piano fully
       - move on to music player and real time note highlighting
       - add as much as feature as you can till the end of ESFAND

@@ -1,30 +1,37 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
+import { useState } from "react"
 
 export default function Register({ setUser }) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const emailToLowerCase = email.toLowerCase()
     const passwordToLowerCase = password.toLowerCase()
-    const response = await fetch('http://localhost:3001/users', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: emailToLowerCase, password: passwordToLowerCase })
+    const response = await fetch("http://localhost:3001/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: emailToLowerCase,
+        password: passwordToLowerCase,
+      }),
     })
     const user = await response.json()
-    localStorage.setItem('user', JSON.stringify(user))
+    localStorage.setItem("user", JSON.stringify(user))
     setUser(user)
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="email" 
-        className="block text-sm font-medium text-green-400">Email</label>
+        <label
+          htmlFor="email"
+          className="block text-sm font-medium text-green-400"
+        >
+          Email
+        </label>
         <input
           type="email"
           id="email"
@@ -35,9 +42,12 @@ export default function Register({ setUser }) {
         />
       </div>
       <div>
-        <label htmlFor="password"
-         className="block text-sm font-medium text-green-400">
-          Password</label>
+        <label
+          htmlFor="password"
+          className="block text-sm font-medium text-green-400"
+        >
+          Password
+        </label>
         <input
           type="password"
           id="password"
@@ -57,4 +67,3 @@ export default function Register({ setUser }) {
     </form>
   )
 }
-
