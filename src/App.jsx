@@ -1,16 +1,17 @@
 "use client"
 
+import { Routes, Route } from "react-router"
 import HomePage from "./components/HomePage"
 import About from "./components/About"
-import { Routes, Route } from "react-router"
-
-import React from "react"
+import MainLayout from "./components/MainLayout"
 
 const App = () => {
   return (
     <Routes>
-      <Route index element={<HomePage />} />
-      <Route path="about" element={<About />} />
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<HomePage />} />
+        <Route path="about" element={<About />} />
+      </Route>
     </Routes>
   )
 }
@@ -21,7 +22,7 @@ export default App
 
     
  - steps: 
-    --- 
+    --- Restructuring the app for react router
     --- Add a "piano" card and then a "coming soon" instrument card to the "instruments" page 
     --- Style the piano as best as you can
     --- Features to add along side the virtual piano:
