@@ -41,8 +41,8 @@ export default App
    -- (at this point this could be a nice v0/alpha release, then go on to add the other features -> )
    -- See if you can gamify this whole thing/add a super cute UI touch up to attract users
    -- maybe add the scoring system right from now?
+ - Once the MVP is finished, try to identify which parts benefit from React 19 and RSC
  - Time to test deploy
- - Next, it's time to find a nice design framework
  - Before we finish: add things to the project that utilize RSC and React 19 features! (to get a good practice and improve portfolio)
   
 

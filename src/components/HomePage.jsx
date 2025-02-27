@@ -2,20 +2,22 @@
 
 const HomePage = () => {
   return (
-    <div className="mx-auto flex container justify-center items-center flex-col">
-      <h1 className="text-center text-2xl font-bold p-5">
-        Welcome to Harmony Hub!
-      </h1>
-      <p className="text-center">
-        Your journey into music creation starts here. Play, experiment, and
-        bring melodies to life with our virtual instruments. Whether you're a
-        beginner or a seasoned musician, Harmony Hub lets you explore sounds
-        effortlessly—right from your browser. Try out the piano, record your
-        tunes, and let creativity flow! Ready to make some music?
-      </p>
-      <div>
-        Ready to make some music?
-        {/* [Start Playing] (CTA Button) -> this one directly leads the user to the piano, but there'll also be a separate section for instruments */}
+    <div className="mx-auto min-h-[600px] flex container justify-center items-center flex-col">
+      <div className="px-5">
+        <h1 className="text-center text-4xl font-bold p-5">
+          Welcome to Harmony Hub!
+        </h1>
+        <p className="text-center text-xl my-6">
+          Your journey into music creation starts here. Play, experiment, and
+          bring melodies to life with our virtual instruments. Whether you're a
+          beginner or a seasoned musician, Harmony Hub lets you explore sounds
+          effortlessly—right from your browser. Try out the piano, record your
+          tunes, and let creativity flow! Ready to make some music?
+        </p>
+        <div className="text-center">
+          Ready to make some music?
+          {/* [Start Playing] (CTA Button) -> this one directly leads the user to the piano, but there'll also be a separate section for instruments */}
+        </div>
       </div>
     </div>
   )
