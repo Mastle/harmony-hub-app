@@ -1,21 +1,37 @@
 "use client"
 
+import { Link } from "react-router"
+
 const HomePage = () => {
   return (
     <div className="mx-auto min-h-[600px] flex container justify-center items-center flex-col">
       <div className="px-5">
-        <h1 className="text-center text-4xl font-bold p-5">
-          Welcome to Harmony Hub!
+        <h1 className="text-center text-4xl font-bold p-5 mt-6  ">
+          Harmony Hub: Where Your Music Comes to Life
         </h1>
-        <p className="text-center text-xl my-6">
-          Your journey into music creation starts here. Play, experiment, and
-          bring melodies to life with our virtual instruments. Whether you're a
-          beginner or a seasoned musician, Harmony Hub lets you explore sounds
-          effortlessly—right from your browser. Try out the piano, record your
-          tunes, and let creativity flow! Ready to make some music?
-        </p>
+        <div className="my-6">
+          <p className="text-center text-xl">
+            Your journey into music exploration starts here. Play, experiment,
+            and bring melodies to life—no experience needed!
+          </p>
+          <p className="text-center text-xl">
+            Whether you're a beginner or a seasoned musician, Harmony Hub lets
+            you explore sounds effortlessly—right from your browser.
+          </p>
+          <p className="text-center text-xl">
+            Try out the piano, record your tunes, and let creativity flow! Ready
+            to make some music?
+          </p>
+        </div>
         <div className="text-center">
-          Ready to make some music?
+          <Link
+            className="btn btn-primary mt-2" //TODO: "text-priamry-content is not really working right now, must see if this gets fixed after the tailwind & daisyUI update"
+            to="./instruments/piano"
+          >
+            <span className="text-primary-content text-xl">
+              ready to make some music?
+            </span>
+          </Link>
           {/* [Start Playing] (CTA Button) -> this one directly leads the user to the piano, but there'll also be a separate section for instruments */}
         </div>
       </div>
@@ -24,18 +40,3 @@ const HomePage = () => {
 }
 export default HomePage
 
-/* 
-
-    current step(short overview):
-      - creating app routes and navigation links with react router
-        --> Creat the homepage (use musicca as an example)
-        -- re-adjust the navbar according to the routes of your app
-        -- create the authentication layout and implement auth system properly
-        -- need to set up the routes for virtual piano and music player properly
-      - implement the piano fully
-      - move on to music player and real time note highlighting
-      - add as much as feature as you can till the end of ESFAND
-      - Joyful Speaking is next
-
-
-*/

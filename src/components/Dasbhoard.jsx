@@ -2,7 +2,7 @@
 
 import { CirclePlay, Piano } from "lucide-react"
 
-const HomeCards = () => {
+const Dashboard = () => {
   return (
     <section className="container">
       <div className="container-xl lg:container m-auto">
@@ -42,5 +42,4 @@ const HomeCards = () => {
   )
 }
 
-export default HomeCards
-
+export default Dashboard
