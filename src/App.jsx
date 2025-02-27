@@ -1,16 +1,20 @@
 "use client"
 
 import { Routes, Route } from "react-router"
-import HomePage from "./components/HomePage"
-import About from "./components/About"
 import MainLayout from "./components/MainLayout"
+import HomePage from "./components/HomePage"
+import AuthLayout from "./components/Auth/AuthLayout"
+import Instruments from "./components/Instruments/Instruments"
+import MusicPlayer from "./components/Music/MusicPlayer"
 
 const App = () => {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="about" element={<About />} />
+        <Route path="login" element={<AuthLayout />} />
+        <Route path="instruments" element={<Instruments />} />
+        <Route path="player" element={<MusicPlayer />} />
       </Route>
     </Routes>
   )
