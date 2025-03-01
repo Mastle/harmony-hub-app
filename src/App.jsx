@@ -4,7 +4,10 @@ import { Routes, Route } from "react-router"
 import MainLayout from "./components/MainLayout"
 import HomePage from "./components/HomePage"
 import AuthLayout from "./components/Auth/AuthLayout"
+import LogIn from "./components/Auth/LogIn"
+import Register from "./components/Auth/Register"
 import Instruments from "./components/Instruments/Instruments"
+import Piano from "./components/Instruments/Piano"
 import MusicPlayer from "./components/Music/MusicPlayer"
 
 const App = () => {
@@ -12,8 +15,12 @@ const App = () => {
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="login" element={<AuthLayout />} />
+        <Route path="/auth" element={<AuthLayout />}>
+          <Route path="login" element={<LogIn />} />
+          <Route path="register" element={<Register />} />
+        </Route>
         <Route path="instruments" element={<Instruments />} />
+        <Route path="instruments/piano" element={<Piano />} />
         <Route path="player" element={<MusicPlayer />} />
       </Route>
     </Routes>

@@ -30,8 +30,8 @@ const Navbar = () => {
                 <NavLink to="/player" className={linkClass}>
                   Music Player
                 </NavLink>
-                <NavLink to="/login" className={linkClass}>
-                  {/* //TODO: Switch this one to "account" */}
+                <NavLink to="/auth/login" className={linkClass}>
+                  {/* //TODO: change this one to "account" on user login */}
                   {/* <CircleUserRound
                     style={{ display: "inline", marginRight: "0.5rem" }}
                   /> */}
@@ -47,5 +47,3 @@ const Navbar = () => {
   )
 }
 export default Navbar
-
-

@@ -1,9 +1,7 @@
-'use client'
+"use client"
 
 const Piano = () => {
-  return (
-    <div>Piano</div>
-  )
+  return <div>This is where the Piano will be</div>
 }
 
 export default Piano

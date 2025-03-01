@@ -1,10 +1,12 @@
 "use client"
 
 import { useState } from "react"
+import { useOutletContext } from "react-router"
 
-export default function Register({ setUser }) {
+export default function Register() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const { setUser } = useOutletContext()
 
   const handleSubmit = async (e) => {
     e.preventDefault()

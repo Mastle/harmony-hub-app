@@ -9,6 +9,11 @@
       "id": "bf23",
       "email": "amir@gmail.com",
       "password": "amir"
+    },
+    {
+      "id": "0a8d",
+      "email": "fake@gmail.com",
+      "password": "fake"
     }
   ],
   "songs": [

@@ -1,5 +1,6 @@
 "use client"
 
+
 import { Link } from "react-router"
 
 const HomePage = () => {
@@ -39,4 +40,3 @@ const HomePage = () => {
   )
 }
 export default HomePage
-
