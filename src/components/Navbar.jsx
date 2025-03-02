@@ -1,10 +1,13 @@
 "use client"
 
+import { useAuth } from "./Auth/AuthContext"
 import { NavLink } from "react-router"
-import { LogIn, CircleUserRound } from "lucide-react"
+import { LogIn, LogOut } from "lucide-react"
 import logo from "../assets/images/logo.svg"
 
 const Navbar = () => {
+  const { user, setIsAuthModalOpen, handleLogout, isAuthModalOpen } = useAuth()
+
   const linkClass = ({ isActive }) =>
     isActive
       ? "bg-teal-900 text-white hover:bg-teal-900 hover:text-white text-lg rounded-md px-3 py-2"
@@ -24,20 +27,39 @@ const Navbar = () => {
             </NavLink>
             <div className="md:ml-auto">
               <div className="flex space-x-2">
-                <NavLink to="/instruments" className={linkClass}>
-                  Instruments
-                </NavLink>
-                <NavLink to="/player" className={linkClass}>
-                  Music Player
-                </NavLink>
-                <NavLink to="/auth/login" className={linkClass}>
-                  {/* //TODO: change this one to "account" on user login */}
-                  {/* <CircleUserRound
-                    style={{ display: "inline", marginRight: "0.5rem" }}
-                  /> */}
-                  <LogIn style={{ display: "inline", marginRight: "0.5rem" }} />
-                  <span>Login</span>
-                </NavLink>
+                <li className="mt-2">
+                  <NavLink to="/instruments" className={linkClass}>
+                    Instruments
+                  </NavLink>
+                </li>
+                <li className="mt-2">
+                  <NavLink to="/player" className={linkClass}>
+                    Music Player
+                  </NavLink>
+                </li>
+                <li>
+                  {user ? (
+                    <button
+                      onClick={handleLogout}
+                      className="text-white hover:bg-teal-900 hover:text-white text-lg rounded-md px-3 py-2"
+                    >
+                      Logout
+                      <LogOut
+                        style={{ display: "inline", marginLeft: "0.5rem" }}
+                      />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => setIsAuthModalOpen(true)}
+                      className="text-white hover:bg-teal-900 hover:text-white text-lg rounded-md px-3 py-2"
+                    >
+                      Login
+                      <LogIn
+                        style={{ display: "inline", marginLeft: "0.5rem" }}
+                      />
+                    </button>
+                  )}
+                </li>
               </div>
             </div>
           </div>

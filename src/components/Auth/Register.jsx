@@ -69,3 +69,22 @@ export default function Register() {
     </form>
   )
 }
+
+/* 
+
+    current step(short overview): 
+    (TODO is reserved for issues)
+        --> polishing the login system, make the register component compatible with the modal system, remove unused code and comments
+        -- prompt the user to confirm when logout is clicked
+        -- for now, the whole point of an authentication system is to allow users to record how well they can play a freely available famous track (like Beethoven's stuff)
+        -- Make the navbar responsive - it's terrible right now
+        -- The "Dashboard" page is what the users will see which consists of two cards: "instruments" card and the "music player" card
+        -- need to set up the routes for virtual piano and music player properly
+      - Once fully finished with the authentication system, I must begin migrating to the latest Tailwind and DaisyUI versions
+      - implement the piano fully
+      - move on to music player and real time note highlighting
+      - add as much as feature as you can till the end of ESFAND
+      - Joyful Speaking is next
+
+
+*/

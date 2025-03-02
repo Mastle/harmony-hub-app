@@ -1,29 +1,27 @@
 "use client"
 
 import { Routes, Route } from "react-router"
+import { AuthProvider } from "./components/Auth/AuthContext"
 import MainLayout from "./components/MainLayout"
 import HomePage from "./components/HomePage"
-import AuthLayout from "./components/Auth/AuthLayout"
-import LogIn from "./components/Auth/LogIn"
-import Register from "./components/Auth/Register"
 import Instruments from "./components/Instruments/Instruments"
 import Piano from "./components/Instruments/Piano"
 import MusicPlayer from "./components/Music/MusicPlayer"
+import AuthModal from "./components/Auth/AuthModal"
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<HomePage />} />
-        <Route path="/auth" element={<AuthLayout />}>
-          <Route path="login" element={<LogIn />} />
-          <Route path="register" element={<Register />} />
+    <AuthProvider>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="instruments" element={<Instruments />} />
+          <Route path="instruments/piano" element={<Piano />} />
+          <Route path="player" element={<MusicPlayer />} />
         </Route>
-        <Route path="instruments" element={<Instruments />} />
-        <Route path="instruments/piano" element={<Piano />} />
-        <Route path="player" element={<MusicPlayer />} />
-      </Route>
-    </Routes>
+      </Routes>
+      <AuthModal />
+    </AuthProvider>
   )
 }
 

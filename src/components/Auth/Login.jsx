@@ -1,27 +1,29 @@
 "use client"
 
-import { useState } from "react"
-import { useOutletContext, useNavigate } from "react-router"
+import { useState, useContext } from "react"
+import { useAuth } from "./AuthContext"
 
-export default function Login({}) {
+export default function Login() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const { setUser } = useOutletContext()
-  let navigate = useNavigate()
+  const { setUser, setIsAuthModalOpen } = useAuth()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const response = await fetch("http://localhost:3001/users")
     const users = await response.json()
+
     const emailLowerCase = email.toLowerCase()
     const passwordLowerCase = password.toLowerCase()
+
     const user = users.find(
       (u) => u.email === emailLowerCase && u.password === passwordLowerCase
     )
+
     if (user) {
       localStorage.setItem("user", JSON.stringify(user))
-      setUser(user)
-      navigate("/")
+      setUser(user) // Update auth state
+      setIsAuthModalOpen(false) // Close the modal after login
     } else {
       alert("Invalid credentials")
     }
@@ -32,8 +34,7 @@ export default function Login({}) {
       <div>
         <label
           htmlFor="email"
-          className="block 
-        text-sm font-medium text-primary"
+          className="block text-sm font-medium text-primary"
         >
           Email
         </label>
@@ -43,13 +44,13 @@ export default function Login({}) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="mt-1 block w-full
-           px-3 py-2 
-           border border-white
-           rounded-md shadow-sm
-            focus:outline-none 
-            focus:ring-blue-500 
-            focus:border-blue-500"
+          className="mt-1 
+          block w-full px-3 py-2 border border-white
+           rounded-md
+           shadow-sm 
+           focus:outline-none
+           focus:ring-blue-500
+          focus:border-blue-500"
         />
       </div>
       <div>
@@ -70,12 +71,7 @@ export default function Login({}) {
       </div>
       <button
         type="submit"
-        className="w-full 
-        flex justify-center 
-        py-2 px-4 border 
-        border-transparent  
-        btn
-        btn-primary"
+        className="w-full flex justify-center py-2 px-4 border border-transparent btn btn-primary"
       >
         Login
       </button>
