@@ -67,15 +67,13 @@ export default AuthLayout
 
     current step(short overview): 
     (TODO is reserved for issues)
-        -- The user auth system must be turned into a modal, a separate route just feels outdated
-        --> redirect user to Dashboard after login ->  then switch "login" navbar item to "hi, {name}". And when this new item is clicked,
-         It shows a contenxt menu that says: log out and underneath it, "profile" which takes the user to their profile
+        --> The user auth system must be turned into a modal, a separate route just feels outdated, once that is done and authModal is fully functional, see if you can add deepseek's suggestion to make it better!
         --  Create the protected component (refer to geepeeT)
-        -- Create the dashbord and run the dashboard component on it "protectedly"
-        -- The navbar has to change "login" to "Profile"
+        -- for now, the whole point of an authentication system is to allow users to record how well they can play a freely available famous track (like Beethoven's stuff)
         -- Make the menu responsive
         -- The "Dashboard" page is what the users will see which consists of two cards: "instruments" card and the "music player" card
         -- need to set up the routes for virtual piano and music player properly
+      - Once fully finished with the authentication system, I must begin migrating to the latest Tailwind and DaisyUI versions
       - implement the piano fully
       - move on to music player and real time note highlighting
       - add as much as feature as you can till the end of ESFAND

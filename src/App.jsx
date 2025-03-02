@@ -52,6 +52,8 @@ export default App
    -- (at this point this could be a nice v0/alpha release, then go on to add the other features -> )
    -- See if you can gamify this whole thing/add a super cute UI touch up to attract users
    -- maybe add the scoring system right from now?
+   -- (future, enhancing the authentication system and adding user profile features) switch "login" navbar item to "hi, {name}". And when this new item is clicked,
+         It shows a contenxt menu that says: log out and underneath it, "profile" which takes the user to their profile
  - Once the MVP is finished, try to identify which parts benefit from React 19 and RSC
  - Time to test deploy
  - Before we finish: add things to the project that utilize RSC and React 19 features! (to get a good practice and improve portfolio)

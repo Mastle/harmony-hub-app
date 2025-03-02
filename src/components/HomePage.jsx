@@ -1,6 +1,5 @@
 "use client"
 
-
 import { Link } from "react-router"
 
 const HomePage = () => {
@@ -24,7 +23,7 @@ const HomePage = () => {
             to make some music?
           </p>
         </div>
-        <div className="text-center">
+        <div className="text-center mt-16">
           <Link
             className="btn btn-primary mt-2" //TODO: "text-priamry-content is not really working right now, must see if this gets fixed after the tailwind & daisyUI update"
             to="./instruments/piano"
