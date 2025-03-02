@@ -67,9 +67,11 @@ export default AuthLayout
 
     current step(short overview): 
     (TODO is reserved for issues)
-      - creating app routes and navigation links with react router
-        -->  Create the protected component (refer to geepeeT)
-        -- Create the dashbord and run the dashboard component on it protectedly
+        -- The user auth system must be turned into a modal, a separate route just feels outdated
+        --> redirect user to Dashboard after login ->  then switch "login" navbar item to "hi, {name}". And when this new item is clicked,
+         It shows a contenxt menu that says: log out and underneath it, "profile" which takes the user to their profile
+        --  Create the protected component (refer to geepeeT)
+        -- Create the dashbord and run the dashboard component on it "protectedly"
         -- The navbar has to change "login" to "Profile"
         -- Make the menu responsive
         -- The "Dashboard" page is what the users will see which consists of two cards: "instruments" card and the "music player" card

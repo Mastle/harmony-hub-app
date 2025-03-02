@@ -1,12 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import { useOutletContext } from "react-router"
+import { useOutletContext, useNavigate } from "react-router"
 
-export default function Login({ }) {
+export default function Login({}) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const { setUser } = useOutletContext()
+  let navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -20,6 +21,7 @@ export default function Login({ }) {
     if (user) {
       localStorage.setItem("user", JSON.stringify(user))
       setUser(user)
+      navigate("/")
     } else {
       alert("Invalid credentials")
     }
