@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useContext } from "react"
+import { useState } from "react"
 import { useAuth } from "./AuthContext"
 
 export default function Login() {

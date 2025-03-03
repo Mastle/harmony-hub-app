@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { useOutletContext } from "react-router"
+import { useAuth } from "./AuthContext"
 
 export default function Register() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const { setUser } = useOutletContext()
+  const { setUser, setIsAuthModalOpen } = useAuth()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -23,6 +23,7 @@ export default function Register() {
     const user = await response.json()
     localStorage.setItem("user", JSON.stringify(user))
     setUser(user)
+    setIsAuthModalOpen(false)
   }
 
   return (
@@ -78,12 +79,9 @@ export default function Register() {
         -- prompt the user to confirm when logout is clicked
         -- for now, the whole point of an authentication system is to allow users to record how well they can play a freely available famous track (like Beethoven's stuff)
         -- Make the navbar responsive - it's terrible right now
-        -- The "Dashboard" page is what the users will see which consists of two cards: "instruments" card and the "music player" card
-        -- need to set up the routes for virtual piano and music player properly
       - Once fully finished with the authentication system, I must begin migrating to the latest Tailwind and DaisyUI versions
-      - implement the piano fully
+      - Time to get started on the instruments (starting with Piano)
       - move on to music player and real time note highlighting
-      - add as much as feature as you can till the end of ESFAND
       - Joyful Speaking is next
 
 

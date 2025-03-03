@@ -11,7 +11,7 @@ function AuthModal() {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center">
-      <div className="bg-base-100 p-6 rounded-lg shadow-lg w-96 relative">
+      <div className="bg-base-100 border border-secondary p-6 rounded-lg shadow-lg w-96 relative">
         <button
           onClick={() => setIsAuthModalOpen(false)}
           className="absolute top-2 right-2 text-xl"
@@ -39,4 +39,3 @@ function AuthModal() {
 }
 
 export default AuthModal
-
