@@ -6,14 +6,12 @@ import { LogIn, LogOut } from "lucide-react"
 import logo from "../assets/images/logo.svg"
 
 const Navbar = () => {
-  const { user, setIsAuthModalOpen, handleLogout, isAuthModalOpen } = useAuth()
+  const { user, setIsAuthModalOpen, handleLogout } = useAuth()
 
   const linkClass = ({ isActive }) =>
     isActive
       ? "bg-teal-900 text-white hover:bg-teal-900 hover:text-white text-lg rounded-md px-3 py-2"
       : "text-white hover:bg-teal-900 hover:text-white text-lg rounded-md px-3 py-2"
-  //TODO: fix the styling issue "text-secondary-content"
-  //TODO: should I keep the colors white or change them to dark for nav menu items?
   return (
     <nav className="bg-secondary border-b border-indigo-500">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">

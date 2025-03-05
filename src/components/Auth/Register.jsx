@@ -72,17 +72,20 @@ export default function Register() {
 }
 
 /* 
-
     current step(short overview): 
-    (TODO is reserved for issues)
-        --> polishing the login system, make the register component compatible with the modal system, remove unused code and comments
-        -- prompt the user to confirm when logout is clicked
-        -- for now, the whole point of an authentication system is to allow users to record how well they can play a freely available famous track (like Beethoven's stuff)
-        -- Make the navbar responsive - it's terrible right now
-      - Once fully finished with the authentication system, I must begin migrating to the latest Tailwind and DaisyUI versions
-      - Time to get started on the instruments (starting with Piano)
+      -  I must begin migrating to the latest Tailwind and DaisyUI versions (follow up: prefix-colorName-content is not working!)
+      - Finishing the Auth system:
+       -- Make the navbar responsive - it's terrible right now
+      - Move on to the instruments component - Time to get started on the instruments (starting with Piano)
       - move on to music player and real time note highlighting
       - Joyful Speaking is next
+*/
 
+/* 
+      TODOS:
+       - The login component could use better styles (a touch up is in order)
+       - Notifications are needed for user actions (something like "you are logged in" notif with react toastify)
+       - prompt the user to confirm when logout is clicked
+       - may need to add protected routes
 
 */

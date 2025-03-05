@@ -27,9 +27,6 @@ const App = () => {
 
 export default App
 /* 
-
-
-    
  - steps: 
     --- Restructuring the app for react router
     --- Add a "piano" card and then a "coming soon" instrument card to the "instruments" page 
@@ -55,13 +52,16 @@ export default App
  - Once the MVP is finished, try to identify which parts benefit from React 19 and RSC
  - Time to test deploy
  - Before we finish: add things to the project that utilize RSC and React 19 features! (to get a good practice and improve portfolio)
+ - New rule: before wrapping things up, I must address the "TODO" comments of each section of the project. This is a technique that allows me to build rapidly and add the essential 
+ improvements later on!
   
 
- IMPORTANT: final decision for portfolio and job interviews:
+ (IMPORTANT)
+  final decision for portfolio and job interviews:
                - firebase and vanilla react is definitely the path for harmony hub
                - T3 stack for next.js store
                - data structure, leet code and CSS challanges next 
-               - If the frontend market is shit, I'll move on to laravel and PHP to expand!
+               - If the frontend market is shit, I'll move on to laravel and PHP to expand! (I highly doubt frontend market being shit will hold me back though)
                 If not, go even deeper on frontend
  */
 

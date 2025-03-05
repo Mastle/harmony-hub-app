@@ -25,7 +25,7 @@ const HomePage = () => {
         </div>
         <div className="text-center mt-16">
           <Link
-            className="btn btn-primary mt-2" //TODO: "text-priamry-content is not really working right now, must see if this gets fixed after the tailwind & daisyUI update"
+            className="btn btn-primary mt-2" 
             to="./instruments/piano"
           >
             <span className="text-primary-content text-xl">
