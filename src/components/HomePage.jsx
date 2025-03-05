@@ -24,15 +24,11 @@ const HomePage = () => {
           </p>
         </div>
         <div className="text-center mt-16">
-          <Link
-            className="btn btn-primary mt-2" 
-            to="./instruments/piano"
-          >
+          <Link className="btn btn-primary mt-2" to="./instruments/piano">
             <span className="text-primary-content text-xl">
               ready to make some music?
             </span>
           </Link>
-          {/* [Start Playing] (CTA Button) -> this one directly leads the user to the piano, but there'll also be a separate section for instruments */}
         </div>
       </div>
     </div>
