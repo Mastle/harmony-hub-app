@@ -73,9 +73,7 @@ export default function Register() {
 
 /* 
     current step(short overview): 
-       - is prefix-colorName-content working?
-      - Finishing the Auth system:
-       -- Make the navbar responsive - it's terrible right now
+      - Finishing the Auth system ->
       - Move on to the instruments component - Time to get started on the instruments (starting with Piano)
       - move on to music player and real time note highlighting
       - Joyful Speaking is next
