@@ -28,7 +28,6 @@ const App = () => {
 export default App
 /* 
  - steps: 
-    --- Restructuring the app for react router
     --- Add a "piano" card and then a "coming soon" instrument card to the "instruments" page 
     --- Style the piano as best as you can
     --- Features to add along side the virtual piano:

@@ -26,7 +26,7 @@ const HomePage = () => {
         </div>
         <div className="text-center mt-16">
           <Link
-            className="btn btn-primary mt-2 p-6 text-xl"
+            className="btn btn-outline btn-primary mt-2 p-6 text-xl"
             to="/instruments/piano"
           >
             ready to make some music?
