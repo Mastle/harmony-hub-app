@@ -49,6 +49,7 @@ export default App
    -- (future, enhancing the authentication system and adding user profile features) switch "login" navbar item to "hi, {name}". And when this new item is clicked,
          It shows a contenxt menu that says: log out and underneath it, "profile" which takes the user to their profile
  - Once the MVP is finished, try to identify which parts benefit from React 19 and RSC
+ - Do consider a cdn for all your assets. That's the best way to speed things up, (and remember to optimize images using stuff like webp format)
  - Time to test deploy
  - Before we finish: add things to the project that utilize RSC and React 19 features! (to get a good practice and improve portfolio)
  - New rule: before wrapping things up, I must address the "TODO" comments of each section of the project. This is a technique that allows me to build rapidly and add the essential 
