@@ -5,7 +5,7 @@ import { AuthProvider } from "./components/Auth/AuthContext"
 import MainLayout from "./components/MainLayout"
 import HomePage from "./components/HomePage"
 import Instruments from "./components/Instruments/Instruments"
-import Piano from "./components/Instruments/Piano"
+import PianoMain from "./components/Instruments/PianoMain"
 import MusicPlayer from "./components/Music/MusicPlayer"
 import AuthModal from "./components/Auth/AuthModal"
 
@@ -16,7 +16,7 @@ const App = () => {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
           <Route path="instruments" element={<Instruments />} />
-          <Route path="instruments/piano" element={<Piano />} />
+          <Route path="instruments/piano" element={<PianoMain />} />
           <Route path="player" element={<MusicPlayer />} />
         </Route>
       </Routes>
