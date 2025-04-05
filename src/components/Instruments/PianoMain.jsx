@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import * as Tone from "tone"
+import "../../styles/pianoStyles.css"
 
 // Piano key data matching your original HTML structure
 const keysData = [
@@ -138,6 +139,8 @@ export default function PianoMain() {
           onStop={(note) => sampler.current.triggerRelease(note)}
         />
       )}
+
+      <h1>Ayoo this is a sample element</h1>
     </div>
   )
 }
@@ -146,7 +149,9 @@ export default function PianoMain() {
      current step(short overview): 
        -> - Adding the Piano
           -- The react code has been added, but it needs to be polished and optimized. Start with reading and understanding the code as best as you can 
-          -- 
+          -- In order to understand this right, I must thoroughlly study the vanilla piano first
+          -- finished studying the vanilla piano
+          -- need to add some styles before I can study the react version
         not sure when the next instruments will be added, there's a bunch of cool new features that might be more valuable than another instrument for this app
        - move on to music player and real time note highlighting
        - Joyful Speaking is next
