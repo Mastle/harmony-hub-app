@@ -71,7 +71,6 @@ export default function Register() {
   )
 }
 
-
 /* 
       TODOS:
        - The login component could use better styles (a touch up is in order)

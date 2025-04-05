@@ -145,7 +145,8 @@ export default function PianoMain() {
 /* 
      current step(short overview): 
        -> - Adding the Piano
-          -- The react code has been added, but it needs to be polished and optimized. Start with reading and understanding the code as best as you can
+          -- The react code has been added, but it needs to be polished and optimized. Start with reading and understanding the code as best as you can 
+          -- 
         not sure when the next instruments will be added, there's a bunch of cool new features that might be more valuable than another instrument for this app
        - move on to music player and real time note highlighting
        - Joyful Speaking is next
