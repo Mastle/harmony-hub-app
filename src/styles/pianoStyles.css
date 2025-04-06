@@ -10,9 +10,68 @@
        - Joyful Speaking is next
  */
 
-h1 {
-  /* sample style, time to add the real paino styles after this session */
-  font-weight: 800;
-  padding: 4rem;
-  font-size: 6rem;
+.piano-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
 }
+
+.piano {
+  display: flex;
+  position: relative;
+  width: 1300px;
+  height: 300px;
+  margin-inline: auto;
+  background: #ddd;
+  border: 2px solid #000;
+}
+
+/* White Keys */
+.key.white {
+  flex: 1;
+  background: white;
+  border: 1px solid black;
+  height: 100%;
+  position: relative;
+  align-content: flex-end;
+  text-align: center;
+  padding-bottom: 2rem;
+  color: black;
+}
+
+/* Black Keys */
+.key.black {
+  position: absolute;
+  width: 60px;
+  height: 200px;
+  background: black;
+  top: 0;
+  z-index: 1;
+  border-radius: 0 0 5px 5px;
+  color: white;
+  text-align: center;
+  align-content: flex-end;
+  padding-bottom: 2rem;
+}
+
+/* Position Black Keys */
+.key.black:nth-of-type(2) {
+  left: 74px;
+} /* C# */
+
+.key.black:nth-of-type(4) {
+  left: 180px;
+} /* D# */
+
+.key.black:nth-of-type(7) {
+  left: 390px;
+} /* F# */
+
+.key.black:nth-of-type(9) {
+  left: 495px;
+} /* G# */
+
+.key.black:nth-of-type(11) {
+  left: 600px;
+} /* A# */
