@@ -135,10 +135,12 @@ export default function PianoMain() {
       {audioReady && (
         <Piano
           keys={keysData}
-          onPlay={(note) => note}
+          onPlay={(note) => sampler.current.triggerAttack(note)}
           onStop={(note) => sampler.current.triggerRelease(note)}
         />
       )}
+
+      <h1>Ayoo this is a sample element</h1>
     </div>
   )
 }
