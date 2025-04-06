@@ -2,51 +2,6 @@ import { useState, useEffect, useRef } from "react"
 import * as Tone from "tone"
 import "../../styles/pianoStyles.css"
 
-// Piano key data matching your original HTML structure
-const keysData = [
-  // First octave
-  { key: "z", note: "C3", isBlack: false },
-  { key: "s", note: "Db3", isBlack: true },
-  { key: "x", note: "D3", isBlack: false },
-  { key: "d", note: "Eb3", isBlack: true },
-  { key: "c", note: "E3", isBlack: false },
-  { key: "v", note: "F3", isBlack: false },
-  { key: "g", note: "Gb3", isBlack: true },
-  { key: "b", note: "G3", isBlack: false },
-  { key: "h", note: "Ab3", isBlack: true },
-  { key: "n", note: "A3", isBlack: false },
-  { key: "j", note: "Bb3", isBlack: true },
-  { key: "m", note: "B3", isBlack: false },
-
-  // Second octave
-  { key: "q", note: "C4", isBlack: false },
-  { key: "2", note: "Db4", isBlack: true },
-  { key: "w", note: "D4", isBlack: false },
-  { key: "3", note: "Eb4", isBlack: true },
-  { key: "e", note: "E4", isBlack: false },
-  { key: "r", note: "F4", isBlack: false },
-  { key: "5", note: "Gb4", isBlack: true },
-  { key: "t", note: "G4", isBlack: false },
-  { key: "6", note: "Ab4", isBlack: true },
-  { key: "y", note: "A4", isBlack: false },
-  { key: "7", note: "Bb4", isBlack: true },
-  { key: "u", note: "B4", isBlack: false },
-
-  // Third octave
-  { key: "i", note: "C5", isBlack: false },
-  { key: "9", note: "Db5", isBlack: true },
-  { key: "o", note: "D5", isBlack: false },
-  { key: "0", note: "Eb5", isBlack: true },
-  { key: "p", note: "E5", isBlack: false },
-  { key: "[", note: "F5", isBlack: false },
-  { key: "=", note: "Gb5", isBlack: true },
-  { key: "]", note: "G5", isBlack: false },
-  { key: "\\", note: "Ab5", isBlack: true },
-  { key: ";", note: "A5", isBlack: false },
-  { key: "'", note: "Bb5", isBlack: true },
-  { key: "enter", note: "B5", isBlack: false },
-]
-
 const Key = ({ note, keyChar, isBlack, onPlay, onStop }) => (
   <div
     className={`key ${isBlack ? "black" : "white"}`}
@@ -73,8 +28,53 @@ export default function PianoMain() {
   const sampler = useRef(null)
   const heldKeys = useRef(new Set())
 
-  const keyToNoteMap = keysData.reduce((map, { key, note }) => {
-    map[key] = note
+  // Piano key data matching your original HTML structure
+  const keysData = [
+    // First octave
+    { keyChar: "z", note: "C3", isBlack: false },
+    { keyChar: "s", note: "Db3", isBlack: true },
+    { keyChar: "x", note: "D3", isBlack: false },
+    { keyChar: "d", note: "Eb3", isBlack: true },
+    { keyChar: "c", note: "E3", isBlack: false },
+    { keyChar: "v", note: "F3", isBlack: false },
+    { keyChar: "g", note: "Gb3", isBlack: true },
+    { keyChar: "b", note: "G3", isBlack: false },
+    { keyChar: "h", note: "Ab3", isBlack: true },
+    { keyChar: "n", note: "A3", isBlack: false },
+    { keyChar: "j", note: "Bb3", isBlack: true },
+    { keyChar: "m", note: "B3", isBlack: false },
+
+    // Second octave
+    { keyChar: "q", note: "C4", isBlack: false },
+    { keyChar: "2", note: "Db4", isBlack: true },
+    { keyChar: "w", note: "D4", isBlack: false },
+    { keyChar: "3", note: "Eb4", isBlack: true },
+    { keyChar: "e", note: "E4", isBlack: false },
+    { keyChar: "r", note: "F4", isBlack: false },
+    { keyChar: "5", note: "Gb4", isBlack: true },
+    { keyChar: "t", note: "G4", isBlack: false },
+    { keyChar: "6", note: "Ab4", isBlack: true },
+    { keyChar: "y", note: "A4", isBlack: false },
+    { keyChar: "7", note: "Bb4", isBlack: true },
+    { keyChar: "u", note: "B4", isBlack: false },
+
+    // Third octave
+    { keyChar: "i", note: "C5", isBlack: false },
+    { keyChar: "9", note: "Db5", isBlack: true },
+    { keyChar: "o", note: "D5", isBlack: false },
+    { keyChar: "0", note: "Eb5", isBlack: true },
+    { keyChar: "p", note: "E5", isBlack: false },
+    { keyChar: "[", note: "F5", isBlack: false },
+    { keyChar: "=", note: "Gb5", isBlack: true },
+    { keyChar: "]", note: "G5", isBlack: false },
+    { keyChar: "\\", note: "Ab5", isBlack: true },
+    { keyChar: ";", note: "A5", isBlack: false },
+    { keyChar: "'", note: "Bb5", isBlack: true },
+    { keyChar: "enter", note: "B5", isBlack: false },
+  ]
+
+  const keyToNoteMap = keysData.reduce((map, { keyChar, note }) => {
+    map[keyChar] = note
     return map
   }, {})
 
@@ -135,12 +135,10 @@ export default function PianoMain() {
       {audioReady && (
         <Piano
           keys={keysData}
-          onPlay={(note) => sampler.current.triggerAttack(note)}
+          onPlay={(note) => note}
           onStop={(note) => sampler.current.triggerRelease(note)}
         />
       )}
-
-      <h1>Ayoo this is a sample element</h1>
     </div>
   )
 }
@@ -151,7 +149,9 @@ export default function PianoMain() {
           -- The react code has been added, but it needs to be polished and optimized. Start with reading and understanding the code as best as you can 
           -- In order to understand this right, I must thoroughlly study the vanilla piano first
           -- finished studying the vanilla piano
-          -- need to add some styles before I can study the react version
+          -- studying the react version as best as I can, need to fully understand how the reduce method exactly works, and then I'll have to take a look 
+          at the PianoMain component since everything seems to go down in there!<-
+          -- need to add some styles next
         not sure when the next instruments will be added, there's a bunch of cool new features that might be more valuable than another instrument for this app
        - move on to music player and real time note highlighting
        - Joyful Speaking is next
