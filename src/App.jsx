@@ -61,8 +61,6 @@ export default App
                - firebase and vanilla react is definitely the path for harmony hub
                - T3 stack for next.js store
                - data structure, leet code and CSS challanges next 
-               - If the frontend market is shit, I'll move on to laravel and PHP to expand! (I highly doubt frontend market being shit will hold me back though)
-                If not, go even deeper on frontend
  */
 
 /* An amazing digital music academy for learners, the best assistant and one-stop-shop for all the professionals' needs */

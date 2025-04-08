@@ -2,18 +2,34 @@ import { useState, useEffect, useRef } from "react"
 import * as Tone from "tone"
 import "../../styles/pianoStyles.css"
 
-const Key = ({ note, keyChar, isBlack, onPlay, onStop }) => (
-  <div
-    className={`key ${isBlack ? "black" : "white"}`}
-    data-key={keyChar}
-    data-note={note}
-    onMouseDown={() => onPlay(note)}
-    onMouseUp={() => onStop(note)}
-    onMouseLeave={() => onStop(note)}
-  >
-    {note}
-  </div>
-)
+const Key = ({ note, keyChar, isBlack, onPlay, onStop }) => {
+  const [active, setActive] = useState(false)
+
+  const handleMouseDown = () => {
+    setActive(true)
+    onPlay(note)
+  }
+
+  const handleMouseUp = () => {
+    setActive(false)
+    onStop(note)
+  }
+
+  return (
+    <button
+      type="button"
+      className={`key ${isBlack ? "black" : "white"} ${active ? "active" : ""}`}
+      aria-label={`Play note ${note}`}
+      data-key={keyChar}
+      data-note={note}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+    >
+      {note}
+    </button>
+  )
+}
 
 const Piano = ({ keys, onPlay, onStop }) => (
   <div className="piano">
@@ -128,10 +144,7 @@ export default function PianoMain() {
   return (
     <div className="piano-container">
       {!audioReady && (
-        <button
-          className="text-2xl cursor-pointer btn p-6"
-          onClick={initializeAudio}
-        >
+        <button className="start-btn" onClick={initializeAudio}>
           Click to start the piano
         </button>
       )}
@@ -149,11 +162,17 @@ export default function PianoMain() {
 
 /* 
      current step(short overview): 
-       -> - Adding the Piano styles
-          -- start with making the "click to start the piano" look sexy
-          -- Then move on to styling the piano -> you can use musicca as inspiration -> start with styling as much as you can by yourself, see what AI cooks up next
-        not sure when the next instruments will be added, there's a bunch of cool new features that might be more valuable than another instrument for this app
-       - move on to music player and real time note highlighting
+    -> - Finishing the piano and starting the Alpha phase 
+         -- Making the piano real pretty
+         -- Preparing the app for an alpha launch
+         -- User profiles and settings implemntation  (The most minimal version possible)
+         -- Saving or sharing configurations or recordings features (I'll try to add this, If it turns out to be too challenging, gotta skip it for now)
+         -- The app must be ready for a small test by a handful users at this point(also a great excuse to test deployment with react and firebase). See how it goes =)
+       - move on to the music player and real time note highlighting (once this feature has been added, Development on this project should stop. I have to shift
+       my focus on to  Next.js, Typescript, An online shop that is the most sophisticated it can be in terms of looks and features. However its scale does have to
+       be compatible with the fact that it's a portfolio project at the end of the day. Once ATP is ready with all the portfolio projects, I'll 
+       come up with the best plan to divide my attention acroses these projects in such a way that  I can make some real dough, I keep evolving as a dev, and I'm doing
+       what I love (a balance through the mixture of these three))
        - Joyful Speaking is next
  */
 

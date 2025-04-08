@@ -14,7 +14,7 @@ function AuthModal() {
       <div className="bg-base-100 border border-secondary p-6 rounded-lg shadow-lg w-96 relative">
         <button
           onClick={() => setIsAuthModalOpen(false)}
-          className="absolute top-2 right-2 text-xl"
+          className="absolute top-2 right-2 text-xl cursor-pointer"
         >
           ✖
         </button>
