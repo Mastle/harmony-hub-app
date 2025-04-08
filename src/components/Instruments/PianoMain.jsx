@@ -151,7 +151,7 @@ export default function PianoMain() {
      current step(short overview): 
        -> - Adding the Piano styles
           -- start with making the "click to start the piano" look sexy
-          -- Then move on to styling the piano -> you can use musicca as inspiration
+          -- Then move on to styling the piano -> you can use musicca as inspiration -> start with styling as much as you can by yourself, see what AI cooks up next
         not sure when the next instruments will be added, there's a bunch of cool new features that might be more valuable than another instrument for this app
        - move on to music player and real time note highlighting
        - Joyful Speaking is next

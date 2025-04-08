@@ -31,7 +31,7 @@
 /* Black Keys */
 .key.black {
   position: absolute;
-  width: 60px;
+  width: 45px;
   height: 200px;
   background: black;
   top: 0;
@@ -45,21 +45,65 @@
 
 /* Position Black Keys */
 .key.black:nth-of-type(2) {
-  left: 74px;
-} /* C# */
+  left: 40px;
+} /* Db3 */
 
 .key.black:nth-of-type(4) {
-  left: 180px;
-} /* D# */
+  left: 100px;
+} /* Eb3 */
 
 .key.black:nth-of-type(7) {
-  left: 390px;
-} /* F# */
+  left: 220px;
+} /* Gb3 */
 
 .key.black:nth-of-type(9) {
-  left: 495px;
-} /* G# */
+  left: 285px;
+} /* Ab3 */
 
 .key.black:nth-of-type(11) {
-  left: 600px;
-} /* A# */
+  left: 350px;
+} /* Bb3 */
+
+/* Final key of the octave */
+
+.key.black:nth-of-type(14) {
+  left: 470px;
+} /* Db4 */
+
+.key.black:nth-of-type(16) {
+  left: 530px;
+} /* Eb4 */
+
+.key.black:nth-of-type(19) {
+  left: 655px;
+} /* Gb4 */
+
+.key.black:nth-of-type(21) {
+  left: 720px;
+} /* Ab4 */
+
+.key.black:nth-of-type(23) {
+  left: 780px;
+} /* Bb4 */
+
+/* Final key of the octave */
+
+.key.black:nth-of-type(26) {
+  left: 900px;
+} /* Db5 */
+
+.key.black:nth-of-type(28) {
+  left: 960px;
+} /* Eb5 */
+
+.key.black:nth-of-type(31) {
+  left: 1090px;
+} /* Gb5 */
+
+.key.black:nth-of-type(33) {
+  left: 1150px;
+} /* Gb5 */
+
+.key.black:nth-of-type(35) {
+  left: 1210px;
+} /* Gb5 */
