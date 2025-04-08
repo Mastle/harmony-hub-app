@@ -2,43 +2,6 @@ import { useState, useEffect, useRef } from "react"
 import * as Tone from "tone"
 import "../../styles/pianoStyles.css"
 
-const Key = ({ note, keyChar, isBlack, onPlay, onStop }) => {
-  const [active, setActive] = useState(false)
-
-  const handleMouseDown = () => {
-    setActive(true)
-    onPlay(note)
-  }
-
-  const handleMouseUp = () => {
-    setActive(false)
-    onStop(note)
-  }
-
-  return (
-    <button
-      type="button"
-      className={`key ${isBlack ? "black" : "white"} ${active ? "active" : ""}`}
-      aria-label={`Play note ${note}`}
-      data-key={keyChar}
-      data-note={note}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
-    >
-      {note}
-    </button>
-  )
-}
-
-const Piano = ({ keys, onPlay, onStop }) => (
-  <div className="piano">
-    {keys.map((keyData) => (
-      <Key key={keyData.note} {...keyData} onPlay={onPlay} onStop={onStop} />
-    ))}
-  </div>
-)
-
 const keysData = [
   // First octave
   { keyChar: "z", note: "C3", isBlack: false },
@@ -88,8 +51,37 @@ const keyToNoteMap = keysData.reduce((map, { keyChar, note }) => {
   return map
 }, {})
 
+const Key = ({ note, keyChar, isBlack, onPlay, onStop, isActive }) => (
+  <button
+    type="button"
+    className={`key ${isBlack ? "black" : "white"} ${isActive ? "active" : ""}`}
+    aria-label={`Play note ${note}`}
+    data-key={keyChar}
+    data-note={note}
+    onMouseDown={() => onPlay(note)}
+    onMouseUp={() => onStop(note)}
+    onMouseLeave={() => onStop(note)}
+  >
+    {note}
+  </button>
+)
+
+const Piano = ({ keys, onPlay, onStop, isActive }) => (
+  <div className="piano">
+    {keys.map((keyData) => (
+      <Key
+        key={keyData.note}
+        {...keyData}
+        onPlay={onPlay}
+        onStop={onStop}
+        isActive={isActive(keyData.note)}
+      />
+    ))}
+  </div>
+)
 export default function PianoMain() {
   const [audioReady, setAudioReady] = useState(false)
+  const [activeNotes, setActiveNotes] = useState(new Set()) // Add active notes state
   const sampler = useRef(null)
   const heldKeys = useRef(new Set())
 
@@ -108,10 +100,27 @@ export default function PianoMain() {
     return () => sampler.current.dispose()
   }, [])
 
+  // Unified play handler
+  const handlePlay = (note) => {
+    setActiveNotes((prev) => new Set([...prev, note]))
+    sampler.current.triggerAttack(note)
+  }
+
+  // Unified stop handler
+  const handleStop = (note) => {
+    setActiveNotes((prev) => {
+      const next = new Set(prev)
+      next.delete(note)
+      return next
+    })
+    sampler.current.triggerRelease(note)
+  }
+
+  // Update keyboard handlers
   const handleKeyDown = (event) => {
     const key = event.key.toLowerCase()
     if (keyToNoteMap[key] && !heldKeys.current.has(key)) {
-      sampler.current.triggerAttack(keyToNoteMap[key])
+      handlePlay(keyToNoteMap[key]) // Use unified handler
       heldKeys.current.add(key)
     }
   }
@@ -119,11 +128,10 @@ export default function PianoMain() {
   const handleKeyUp = (event) => {
     const key = event.key.toLowerCase()
     if (keyToNoteMap[key]) {
-      sampler.current.triggerRelease(keyToNoteMap[key])
+      handleStop(keyToNoteMap[key]) // Use unified handler
       heldKeys.current.delete(key)
     }
   }
-
   const initializeAudio = async () => {
     await Tone.start()
     setAudioReady(true)
@@ -144,16 +152,19 @@ export default function PianoMain() {
   return (
     <div className="piano-container">
       {!audioReady && (
-        <button className="start-btn" onClick={initializeAudio}>
+        <button
+          className="text-2xl cursor-pointer btn p-6"
+          onClick={initializeAudio}
+        >
           Click to start the piano
         </button>
       )}
-
       {audioReady && (
         <Piano
           keys={keysData}
-          onPlay={(note) => sampler.current.triggerAttack(note)}
-          onStop={(note) => sampler.current.triggerRelease(note)}
+          onPlay={handlePlay}
+          onStop={handleStop}
+          isActive={(note) => activeNotes.has(note)}
         />
       )}
     </div>
@@ -163,7 +174,7 @@ export default function PianoMain() {
 /* 
      current step(short overview): 
     -> - Finishing the piano and starting the Alpha phase 
-         -- Making the piano real pretty
+         -- Making the piano real pretty -> Make sure you fully understand how the new piano code works -> add the final touches for the visual stuff -> let deepseek review it and then move on
          -- Preparing the app for an alpha launch
          -- User profiles and settings implemntation  (The most minimal version possible)
          -- Saving or sharing configurations or recordings features (I'll try to add this, If it turns out to be too challenging, gotta skip it for now)
