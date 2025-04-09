@@ -1,4 +1,4 @@
-/* Define CSS variables for consistent theming */
+/* Define CSS variables for consistent theming and responsiveness */
 :root {
   --white-key-bg: #fff;
   --white-key-border: #ccc;
@@ -9,133 +9,157 @@
   --black-key-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 
   --active-transform: translateY(3px);
-  --transition-duration: 0.2s;
+  --transition-duration: 0.1s; /* faster transition for better responsiveness */
+  --piano-aspect-ratio: 4 / 1; /* default aspect ratio for wide screens */
 }
 
-/* Piano container: centers and adds a subtle background */
+/* Center the piano and allow it to scale with the viewport */
 .piano-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 70vh;
   padding: 1rem;
+  width: 100%;
 }
 
-/* Piano layout with gradient background and shadow for depth */
+/* Responsive piano: full width with a maximum width and dynamic aspect ratio */
 .piano {
-  display: flex;
   position: relative;
-  width: 1300px;
-  height: 300px;
-  margin: auto;
+  width: 100%;
+  max-width: 1300px;
+  aspect-ratio: var(--piano-aspect-ratio);
   background: linear-gradient(to bottom, #e6e6e6, #ccc);
   border: 2px solid #444;
   border-radius: 8px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   overflow: hidden;
+  display: flex;
 }
 
-/* Base key styling */
+/* Base styling for keys */
 .key {
   font-family: sans-serif;
-  font-size: 0.8rem;
+  font-size: 1rem;
   user-select: none;
   cursor: pointer;
-  transition: transform var(--transition-duration);
+  transition: transform var(--transition-duration),
+    box-shadow var(--transition-duration);
   position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-end;
   padding-bottom: 0.75rem;
   border: none;
+  touch-action: manipulation;
 }
 
-/* White keys: fill available space and have soft borders & shadows */
+/* White keys: use flex layout so that each fills available space */
 .key.white {
   flex: 1;
   background: var(--white-key-bg);
   color: black;
   border: 1px solid var(--white-key-border);
-  height: 100%;
   box-shadow: var(--white-key-shadow);
   z-index: 1;
 }
 
-/* Active effect for white keys */
+/* Active white key effect */
 .key.white.active {
   transform: var(--active-transform);
   box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.623);
 }
 
-/* Black keys: positioned absolutely over white keys with defined dimensions */
+/* Black keys: positioned absolutely relative to the container */
 .key.black {
   position: absolute;
-  width: 3.5%;
-  height: 180px;
   background: var(--black-key-bg);
   border: 1px solid var(--black-key-border);
+  box-shadow: var(--black-key-shadow);
+  /* Each white key is 1/21 of the width; black keys are ~60% of that width */
+  width: calc((100% / 21) * 0.6);
+  height: 60%;
+  top: 0;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   color: #fff;
-  z-index: 2;
-  box-shadow: var(--black-key-shadow);
   font-weight: 600;
+  z-index: 2;
 }
 
-/* Active effect for black keys */
+/* Active black key effect */
 .key.black.active {
   transform: var(--active-transform);
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7);
 }
 
-/* Positioning black keys using attribute selectors */
-/* First octave */
+/* Positioning black keys relative to their adjacent white keys.
+   White keys are indexed from 0 to 20. We place each black key approximately
+   between two white keys by using a multiplier and a slight left offset.
+   Adjust the 0.3 factor as needed for visual balance.
+*/
+
+/* First octave (white key indices: C3 at 0, D3 at 1, E3 at 2, F3 at 3, G3 at 4, A3 at 5, B3 at 6) */
 .key.black[data-note="Db3"] {
-  left: 40px;
+  left: calc((1 * 100%) / 21 - (100% / 21) * 0.3);
 }
 .key.black[data-note="Eb3"] {
-  left: 100px;
+  left: calc((2 * 100%) / 21 - (100% / 21) * 0.3);
 }
 .key.black[data-note="Gb3"] {
-  left: 225px;
+  left: calc((4 * 100%) / 21 - (100% / 21) * 0.3);
 }
 .key.black[data-note="Ab3"] {
-  left: 285px;
+  left: calc((5 * 100%) / 21 - (100% / 21) * 0.3);
 }
 .key.black[data-note="Bb3"] {
-  left: 346px;
+  left: calc((6 * 100%) / 21 - (100% / 21) * 0.3);
 }
 
-/* Second octave */
+/* Second octave (white key indices: C4 at 7, D4 at 8, E4 at 9, F4 at 10, G4 at 11, A4 at 12, B4 at 13) */
 .key.black[data-note="Db4"] {
-  left: 470px;
+  left: calc((8 * 100%) / 21 - (100% / 21) * 0.3);
 }
 .key.black[data-note="Eb4"] {
-  left: 535px;
+  left: calc((9 * 100%) / 21 - (100% / 21) * 0.3);
 }
 .key.black[data-note="Gb4"] {
-  left: 655px;
+  left: calc((11 * 100%) / 21 - (100% / 21) * 0.3);
 }
 .key.black[data-note="Ab4"] {
-  left: 720px;
+  left: calc((12 * 100%) / 21 - (100% / 21) * 0.3);
 }
 .key.black[data-note="Bb4"] {
-  left: 780px;
+  left: calc((13 * 100%) / 21 - (100% / 21) * 0.3);
 }
 
-/* Third octave */
+/* Third octave (white key indices: C5 at 14, D5 at 15, E5 at 16, F5 at 17, G5 at 18, A5 at 19, B5 at 20) */
 .key.black[data-note="Db5"] {
-  left: 900px;
+  left: calc((15 * 100%) / 21 - (100% / 21) * 0.3);
 }
 .key.black[data-note="Eb5"] {
-  left: 965px;
+  left: calc((16 * 100%) / 21 - (100% / 21) * 0.3);
 }
 .key.black[data-note="Gb5"] {
-  left: 1090px;
+  left: calc((18 * 100%) / 21 - (100% / 21) * 0.3);
 }
 .key.black[data-note="Ab5"] {
-  left: 1150px;
+  left: calc((19 * 100%) / 21 - (100% / 21) * 0.3);
 }
 .key.black[data-note="Bb5"] {
-  left: 1210px;
+  left: calc((20 * 100%) / 21 - (100% / 21) * 0.3);
+}
+
+/* Media query adjustments for smaller screens */
+@media (max-width: 768px) {
+  .piano {
+    aspect-ratio: 2 / 1; /* squarer piano for mobile */
+  }
+  .key {
+    font-size: 0.6rem;
+  }
+  .key.black {
+    height: 50%;
+    width: calc((100% / 21) * 0.6);
+  }
 }

@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect, useRef, useCallback } from "react"
 import * as Tone from "tone"
 import "../../styles/pianoStyles.css"
@@ -51,7 +53,15 @@ const keyToNoteMap = keysData.reduce((map, { keyChar, note }) => {
   return map
 }, {})
 
-const Key = ({ note, keyChar, isBlack, onPlay, onStop, isActive }) => (
+const Key = ({
+  note,
+  keyChar,
+  isBlack,
+  onPlay,
+  onStop,
+  isActive,
+  showLabels,
+}) => (
   <button
     type="button"
     className={`key ${isBlack ? "black" : "white"} ${isActive ? "active" : ""}`}
@@ -61,12 +71,15 @@ const Key = ({ note, keyChar, isBlack, onPlay, onStop, isActive }) => (
     onMouseDown={() => onPlay(note)}
     onMouseUp={() => onStop(note)}
     onMouseLeave={() => onStop(note)}
+    onTouchStart={() => onPlay(note)}
+    onTouchEnd={() => onStop(note)}
+    onTouchCancel={() => onStop(note)}
   >
-    {note} ({keyChar})
+    {showLabels ? `${note} (${keyChar})` : ""}
   </button>
 )
 
-const Piano = ({ keys, onPlay, onStop, isActive }) => (
+const Piano = ({ keys, onPlay, onStop, isActive, showLabels }) => (
   <div className="piano">
     {keys.map((keyData) => (
       <Key
@@ -75,6 +88,7 @@ const Piano = ({ keys, onPlay, onStop, isActive }) => (
         onPlay={onPlay}
         onStop={onStop}
         isActive={isActive(keyData.note)}
+        showLabels={showLabels}
       />
     ))}
   </div>
@@ -82,6 +96,7 @@ const Piano = ({ keys, onPlay, onStop, isActive }) => (
 export default function PianoMain() {
   const [audioReady, setAudioReady] = useState(false)
   const [activeNotes, setActiveNotes] = useState(new Set()) // Add active notes state
+  const [showLabels, setShowLabels] = useState(true) // New state for toggling labels
   const sampler = useRef(null)
   const heldKeys = useRef(new Set())
 
@@ -113,7 +128,6 @@ export default function PianoMain() {
       next.delete(note)
       return next
     })
-    console.log("I'm running")
     sampler.current?.triggerRelease(note)
   }, [])
 
@@ -158,31 +172,41 @@ export default function PianoMain() {
   }, [audioReady, handleKeyDown, handleKeyUp])
 
   return (
-    <div className="piano-container">
-      {!audioReady && (
-        <button
-          className="text-2xl cursor-pointer btn p-6"
-          onClick={initializeAudio}
-        >
-          Click to start the piano
-        </button>
-      )}
+    <>
+      <div className="piano-container">
+        {!audioReady && (
+          <button
+            className="text-2xl cursor-pointer btn p-6"
+            onClick={initializeAudio}
+          >
+            Click to start the piano
+          </button>
+        )}
+        {audioReady && (
+          <Piano
+            keys={keysData}
+            onPlay={handlePlay}
+            onStop={handleStop}
+            isActive={(note) => activeNotes.has(note)}
+            showLabels={showLabels}
+          />
+        )}
+      </div>
       {audioReady && (
-        <Piano
-          keys={keysData}
-          onPlay={handlePlay}
-          onStop={handleStop}
-          isActive={(note) => activeNotes.has(note)}
-        />
+        <div style={{ textAlign: "center", marginTop: "1rem" }}>
+          <button onClick={() => setShowLabels((prev) => !prev)}>
+            {showLabels ? "Hide Key Labels" : "Show Key Labels"}
+          </button>
+        </div>
       )}
-    </div>
+    </>
   )
 }
 
 /* 
      current step(short overview): 
     -> - Finishing the piano and starting the Alpha phase 
-         -- Making the piano real pretty -> add the final touches for the visual stuff(the white keys could be more shaped like a key at their bottoms + responsive mode) -> let deepseek review it and then move on
+         -- Final step for the piano: Optimize the keyboard shortcuts, time to move on!
          -- Preparing the app for an alpha launch
          -- Saving or sharing configurations or recordings features (I'll try to add this, If it turns out to be too challenging, gotta skip it for now)
          -- User profiles and settings implemntation  (The most minimal version possible)
