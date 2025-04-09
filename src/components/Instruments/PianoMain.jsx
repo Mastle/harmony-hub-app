@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import * as Tone from "tone"
 import "../../styles/pianoStyles.css"
 
@@ -62,7 +62,7 @@ const Key = ({ note, keyChar, isBlack, onPlay, onStop, isActive }) => (
     onMouseUp={() => onStop(note)}
     onMouseLeave={() => onStop(note)}
   >
-    {note}
+    {note} ({keyChar})
   </button>
 )
 
@@ -100,38 +100,46 @@ export default function PianoMain() {
     return () => sampler.current.dispose()
   }, [])
 
-  // Unified play handler
-  const handlePlay = (note) => {
+  // Unified play handler with useCallback
+  const handlePlay = useCallback((note) => {
     setActiveNotes((prev) => new Set([...prev, note]))
-    sampler.current.triggerAttack(note)
-  }
+    sampler.current?.triggerAttack(note)
+  }, []) // Empty dependency array means this never changes
 
-  // Unified stop handler
-  const handleStop = (note) => {
+  // Unified stop handler with useCallback
+  const handleStop = useCallback((note) => {
     setActiveNotes((prev) => {
       const next = new Set(prev)
       next.delete(note)
       return next
     })
-    sampler.current.triggerRelease(note)
-  }
+    console.log("I'm running")
+    sampler.current?.triggerRelease(note)
+  }, [])
 
-  // Update keyboard handlers
-  const handleKeyDown = (event) => {
-    const key = event.key.toLowerCase()
-    if (keyToNoteMap[key] && !heldKeys.current.has(key)) {
-      handlePlay(keyToNoteMap[key]) // Use unified handler
-      heldKeys.current.add(key)
-    }
-  }
+  // Keyboard handlers with useCallback
+  const handleKeyDown = useCallback(
+    (event) => {
+      const key = event.key.toLowerCase()
+      if (keyToNoteMap[key] && !heldKeys.current.has(key)) {
+        handlePlay(keyToNoteMap[key])
+        heldKeys.current.add(key)
+      }
+    },
+    [handlePlay]
+  ) // Depends on handlePlay
 
-  const handleKeyUp = (event) => {
-    const key = event.key.toLowerCase()
-    if (keyToNoteMap[key]) {
-      handleStop(keyToNoteMap[key]) // Use unified handler
-      heldKeys.current.delete(key)
-    }
-  }
+  const handleKeyUp = useCallback(
+    (event) => {
+      const key = event.key.toLowerCase()
+      if (keyToNoteMap[key]) {
+        handleStop(keyToNoteMap[key])
+        heldKeys.current.delete(key)
+      }
+    },
+    [handleStop]
+  ) // Depends on handleStop
+
   const initializeAudio = async () => {
     await Tone.start()
     setAudioReady(true)
@@ -147,7 +155,7 @@ export default function PianoMain() {
       window.removeEventListener("keydown", handleKeyDown)
       window.removeEventListener("keyup", handleKeyUp)
     }
-  }, [audioReady])
+  }, [audioReady, handleKeyDown, handleKeyUp])
 
   return (
     <div className="piano-container">
@@ -174,10 +182,10 @@ export default function PianoMain() {
 /* 
      current step(short overview): 
     -> - Finishing the piano and starting the Alpha phase 
-         -- Making the piano real pretty -> Make sure you fully understand how the new piano code works -> add the final touches for the visual stuff -> let deepseek review it and then move on
+         -- Making the piano real pretty -> add the final touches for the visual stuff(the white keys could be more shaped like a key at their bottoms + responsive mode) -> let deepseek review it and then move on
          -- Preparing the app for an alpha launch
-         -- User profiles and settings implemntation  (The most minimal version possible)
          -- Saving or sharing configurations or recordings features (I'll try to add this, If it turns out to be too challenging, gotta skip it for now)
+         -- User profiles and settings implemntation  (The most minimal version possible)
          -- The app must be ready for a small test by a handful users at this point(also a great excuse to test deployment with react and firebase). See how it goes =)
        - move on to the music player and real time note highlighting (once this feature has been added, Development on this project should stop. I have to shift
        my focus on to  Next.js, Typescript, An online shop that is the most sophisticated it can be in terms of looks and features. However its scale does have to
