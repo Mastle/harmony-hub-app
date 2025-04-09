@@ -54,6 +54,7 @@
 .key.white {
   flex: 1;
   background: var(--white-key-bg);
+  color: black;
   border: 1px solid var(--white-key-border);
   height: 100%;
   box-shadow: var(--white-key-shadow);
@@ -78,6 +79,7 @@
   color: #fff;
   z-index: 2;
   box-shadow: var(--black-key-shadow);
+  font-weight: 600;
 }
 
 /* Active effect for black keys */
@@ -89,51 +91,51 @@
 /* Positioning black keys using attribute selectors */
 /* First octave */
 .key.black[data-note="Db3"] {
-  left: 65px;
+  left: 40px;
 }
 .key.black[data-note="Eb3"] {
-  left: 140px;
+  left: 100px;
 }
 .key.black[data-note="Gb3"] {
-  left: 305px;
+  left: 225px;
 }
 .key.black[data-note="Ab3"] {
-  left: 380px;
+  left: 285px;
 }
 .key.black[data-note="Bb3"] {
-  left: 455px;
+  left: 346px;
 }
 
 /* Second octave */
 .key.black[data-note="Db4"] {
-  left: 575px;
+  left: 470px;
 }
 .key.black[data-note="Eb4"] {
-  left: 650px;
+  left: 535px;
 }
 .key.black[data-note="Gb4"] {
-  left: 815px;
+  left: 655px;
 }
 .key.black[data-note="Ab4"] {
-  left: 890px;
+  left: 720px;
 }
 .key.black[data-note="Bb4"] {
-  left: 965px;
+  left: 780px;
 }
 
 /* Third octave */
 .key.black[data-note="Db5"] {
-  left: 1085px;
+  left: 900px;
 }
 .key.black[data-note="Eb5"] {
-  left: 1160px;
+  left: 965px;
 }
 .key.black[data-note="Gb5"] {
-  left: 1325px;
+  left: 1090px;
 }
 .key.black[data-note="Ab5"] {
-  left: 1400px;
+  left: 1150px;
 }
 .key.black[data-note="Bb5"] {
-  left: 1475px;
+  left: 1210px;
 }
