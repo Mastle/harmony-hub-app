@@ -26,6 +26,7 @@ const App = () => {
 }
 
 export default App
+
 /* 
  - steps: 
     --- Add a "piano" card and then a "coming soon" instrument card to the "instruments" page 
@@ -55,12 +56,6 @@ export default App
  - New rule: before wrapping things up, I must address the "TODO" comments of each section of the project. This is a technique that allows me to build rapidly and add the essential 
  improvements later on!
   
-
- (IMPORTANT)
-  final decision for portfolio and job interviews:
-               - firebase and vanilla react is definitely the path for harmony hub
-               - T3 stack for next.js store
-               - data structure, leet code and CSS challanges next 
  */
 
 /* An amazing digital music academy for learners, the best assistant and one-stop-shop for all the professionals' needs */
