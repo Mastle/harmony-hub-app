@@ -213,9 +213,25 @@ export default function PianoMain() {
 }
 
 /* 
+TODO(Creating the first song game):
+
+1. **“Twinkle, Twinkle, Little Star”
+
+notes = [C  C  G  G  A  A  G  
+F  F  E  E  D  D  C] 
+
+Keyboard shortcuts = [u u z z x x z
+p p o o i i u]
+
+learned how this thing works overall, time to add a "song game" mechanism for allowing users to play their favorite melodies
+
+
+*/
+
+/* 
      current step(short overview):
     -> - Finishing the piano and preparing the app for an alpha launch
-         -- So the final updates for the piano are the simplest song game possible, and a way to save the user's score and perhaps share it with others.
+         -- So the final updates for the piano are the simplest song games possible, and a way to save the user's score and perhaps share it with others.
          -- Time to add "song games" with a user score system (https://recursivearts.com/virtual-piano/)". gotta add this one
          -- Add Saving or sharing configurations or recordings features (I'll try to add this, If it turns out to be too challenging, gotta skip it for now)
          -- implement User profiles and settings   (The most minimal version possible)
