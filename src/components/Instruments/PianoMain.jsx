@@ -4,6 +4,51 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import * as Tone from "tone"
 import "../../styles/pianoStyles.css"
 
+const twinkleNotes = [
+  "C4",
+  "C4",
+  "G4",
+  "G4",
+  "A4",
+  "A4",
+  "G4",
+  "F4",
+  "F4",
+  "E4",
+  "E4",
+  "D4",
+  "D4",
+  "C4",
+  "G4",
+  "G4",
+  "F4",
+  "F4",
+  "E4",
+  "E4",
+  "D4",
+  "G4",
+  "G4",
+  "F4",
+  "F4",
+  "E4",
+  "E4",
+  "D4",
+  "C4",
+  "C4",
+  "G4",
+  "G4",
+  "A4",
+  "A4",
+  "G4",
+  "F4",
+  "F4",
+  "E4",
+  "E4",
+  "D4",
+  "D4",
+  "C4",
+]
+
 const keysData = [
   // Lower Octave (C3-B3) - ZXCVBNM row + home row blacks
   { keyChar: "tab", note: "C3", isBlack: false },
@@ -60,11 +105,14 @@ const Key = ({
   onPlay,
   onStop,
   isActive,
+  isTarget,
   showLabels,
 }) => (
   <button
     type="button"
-    className={`key ${isBlack ? "black" : "white"} ${isActive ? "active" : ""}`}
+    className={`key ${isBlack ? "black" : "white"} ${
+      isActive ? "active" : ""
+    } ${isTarget ? "target" : ""}`}
     aria-label={`Play note ${note}`}
     data-key={keyChar}
     data-note={note}
@@ -79,7 +127,7 @@ const Key = ({
   </button>
 )
 
-const Piano = ({ keys, onPlay, onStop, isActive, showLabels }) => (
+const Piano = ({ keys, onPlay, onStop, isActive, isTarget, showLabels }) => (
   <div className="piano">
     {keys.map((keyData) => (
       <Key
@@ -88,17 +136,37 @@ const Piano = ({ keys, onPlay, onStop, isActive, showLabels }) => (
         onPlay={onPlay}
         onStop={onStop}
         isActive={isActive(keyData.note)}
+        isTarget={isTarget(keyData.note)}
         showLabels={showLabels}
       />
     ))}
   </div>
 )
+
 export default function PianoMain() {
   const [audioReady, setAudioReady] = useState(false)
-  const [activeNotes, setActiveNotes] = useState(new Set()) // Add active notes state
-  const [showLabels, setShowLabels] = useState(false) // New state for toggling labels
+  const [activeNotes, setActiveNotes] = useState(new Set())
+  const [showLabels, setShowLabels] = useState(false)
+  const [isSongGameActive, setIsSongGameActive] = useState(false)
+  const [currentSongStep, setCurrentSongStep] = useState(0)
+  const [targetNote, setTargetNote] = useState(null)
+  const isSongGameActiveRef = useRef(false)
+  const songStepRef = useRef(0)
+  const targetNoteRef = useRef(null)
   const sampler = useRef(null)
   const heldKeys = useRef(new Set())
+
+  useEffect(() => {
+    isSongGameActiveRef.current = isSongGameActive
+  }, [isSongGameActive])
+
+  useEffect(() => {
+    songStepRef.current = currentSongStep
+  }, [currentSongStep])
+
+  useEffect(() => {
+    targetNoteRef.current = targetNote
+  }, [targetNote])
 
   useEffect(() => {
     // Initialize Tone.js sampler
@@ -115,13 +183,24 @@ export default function PianoMain() {
     return () => sampler.current.dispose()
   }, [])
 
-  // Unified play handler with useCallback
   const handlePlay = useCallback((note) => {
     setActiveNotes((prev) => new Set([...prev, note]))
     sampler.current?.triggerAttack(note)
-  }, []) // Empty dependency array means this never changes
 
-  // Unified stop handler with useCallback
+    // Song game logic
+    if (isSongGameActiveRef.current && note === targetNoteRef.current) {
+      const nextStep = songStepRef.current + 1
+      if (nextStep < twinkleNotes.length) {
+        setCurrentSongStep(nextStep)
+        setTargetNote(twinkleNotes[nextStep])
+      } else {
+        setIsSongGameActive(false)
+        setCurrentSongStep(0)
+        setTargetNote(null)
+      }
+    }
+  }, [])
+
   const handleStop = useCallback((note) => {
     setActiveNotes((prev) => {
       const next = new Set(prev)
@@ -131,7 +210,6 @@ export default function PianoMain() {
     sampler.current?.triggerRelease(note)
   }, [])
 
-  // Keyboard handlers with useCallback
   const handleKeyDown = useCallback(
     (event) => {
       const key = event.key.toLowerCase()
@@ -141,7 +219,7 @@ export default function PianoMain() {
       }
     },
     [handlePlay]
-  ) // Depends on handlePlay
+  )
 
   const handleKeyUp = useCallback(
     (event) => {
@@ -152,7 +230,7 @@ export default function PianoMain() {
       }
     },
     [handleStop]
-  ) // Depends on handleStop
+  )
 
   const initializeAudio = async () => {
     await Tone.start()
@@ -177,6 +255,12 @@ export default function PianoMain() {
     }
   }, [audioReady, handleKeyDown, handleKeyUp])
 
+  const startSongGame = () => {
+    setIsSongGameActive(true)
+    setCurrentSongStep(0)
+    setTargetNote(twinkleNotes[0])
+  }
+
   return (
     <>
       <div className="piano-container">
@@ -194,20 +278,36 @@ export default function PianoMain() {
             onPlay={handlePlay}
             onStop={handleStop}
             isActive={(note) => activeNotes.has(note)}
+            isTarget={(note) => targetNote === note}
             showLabels={showLabels}
           />
         )}
       </div>
-      {audioReady && (
-        <div style={{ textAlign: "center", marginTop: "1rem" }}>
-          <button
-            onClick={() => setShowLabels((prev) => !prev)}
-            className="btn btn-info"
-          >
-            {showLabels ? "Hide Key Labels" : "Show Key Labels"}
-          </button>
-        </div>
-      )}
+      <div>
+        {audioReady && (
+          <div style={{ textAlign: "center", marginTop: "1rem" }}>
+            <button
+              onClick={() => setShowLabels((prev) => !prev)}
+              className="btn btn-info"
+            >
+              {showLabels ? "Hide Key Labels" : "Show Key Labels"}
+            </button>
+          </div>
+        )}
+      </div>
+      <div>
+        {audioReady && (
+          <div style={{ textAlign: "center", marginTop: "1rem" }}>
+            <button
+              onClick={startSongGame}
+              className="btn btn-success"
+              disabled={isSongGameActive}
+            >
+              Start Song Game
+            </button>
+          </div>
+        )}
+      </div>
     </>
   )
 }
@@ -250,3 +350,17 @@ learned how this thing works overall, time to add a "song game" mechanism for al
 //  TODO: currently, the piano relies on user interaction to start. Is it worth it to look into ways to start it without asking the user to interact?
 //  TODO: The best online piano at the moment (https://recursivearts.com/virtual-piano/) is utilizing unity to have the best simulation possible. How's that even possible?
 //  TODO: The piano output doesn't sustain that well right now, utilinzg tone.reverb and tone.eq seems to add artifacts to the audio. What to do?
+
+/*
+
+{audioReady && (
+  <div style={{ textAlign: "center", marginTop: "1rem" }}>
+    <button
+      onClick={startSongGame}
+      className="btn btn-success"
+      disabled={isSongGameActive}
+    >
+      Start Song Game
+    </button>
+  </div>
+*/

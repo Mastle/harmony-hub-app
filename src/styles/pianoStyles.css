@@ -163,3 +163,15 @@
     width: calc((100% / 21) * 0.6);
   }
 }
+
+.key.white.target {
+  background: #ffeb3b;
+}
+
+.key.black.target {
+  background: #fbc02d;
+}
+
+.key.target {
+  box-shadow: 0 0 8px rgba(255, 235, 59, 0.5);
+}
