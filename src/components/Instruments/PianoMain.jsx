@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import * as Tone from "tone"
 import "../../styles/pianoStyles.css"
 import { keysData, keyToNoteMap } from "../data/pianoKeys"
-import { twinkleNotes } from "../data/pianoSongs"
+import { songs } from "../data/pianoSongs"
 
 const Key = ({
   note,
@@ -58,6 +58,9 @@ export default function PianoMain() {
   const [isSongGameActive, setIsSongGameActive] = useState(false)
   const [currentSongStep, setCurrentSongStep] = useState(0)
   const [targetNote, setTargetNote] = useState(null)
+  const [selectedSongId, setSelectedSongId] = useState("twinkle")
+  const [showNotes, setShowNotes] = useState(false)
+  const currentSongNotesRef = useRef(songs.twinkle.notes)
   const isSongGameActiveRef = useRef(false)
   const songStepRef = useRef(0)
   const targetNoteRef = useRef(null)
@@ -98,9 +101,9 @@ export default function PianoMain() {
     // Song game logic
     if (isSongGameActiveRef.current && note === targetNoteRef.current) {
       const nextStep = songStepRef.current + 1
-      if (nextStep < twinkleNotes.length) {
+      if (nextStep < currentSongNotesRef.current.length) {
         setCurrentSongStep(nextStep)
-        setTargetNote(twinkleNotes[nextStep])
+        setTargetNote(currentSongNotesRef.current[nextStep])
       } else {
         setIsSongGameActive(false)
         setCurrentSongStep(0)
@@ -163,9 +166,18 @@ export default function PianoMain() {
     }
   }, [audioReady, handleKeyDown, handleKeyUp])
 
+  useEffect(() => {
+    currentSongNotesRef.current = songs[selectedSongId]?.notes || []
+  }, [selectedSongId])
+
   const startSongGame = () => {
+    if (!songs[selectedSongId]) return
+
     setIsSongGameActive(true)
-    setTargetNote(twinkleNotes[0]) //Current step: The song that the setTargetNote() function receives should not be hard-coded. it should be determined from user choice. Let's start by adding two more pieces at least, and I also have to come up with the best way to store thse giant arrays
+    setCurrentSongStep(0)
+    setTargetNote(currentSongNotesRef.current[0])
+
+    //Current step: The song that the setTargetNote() function receives should not be hard-coded. it should be determined from user choice. Let's start by adding two more pieces at least, and I also have to come up with the best way to store thse giant arrays
   }
 
   const stopSongGame = () => {
@@ -196,31 +208,75 @@ export default function PianoMain() {
           />
         )}
       </div>
-      <div>
-        {audioReady && (
-          <div style={{ textAlign: "center", marginTop: "1rem" }}>
-            <button
-              onClick={() => setShowLabels((prev) => !prev)}
-              className="btn btn-info"
-            >
-              {showLabels ? "Hide Key Labels" : "Show Key Labels"}
-            </button>
-          </div>
-        )}
+      <div className="text-center mb-8">
+        {showNotes &&
+          currentSongNotesRef.current.map((e) => (
+            <span className="mx-2 text-xl">{e[0]}</span>
+          ))}
+        <button
+          className="block mx-auto mt-5 btn btn-info"
+          onClick={() => setShowNotes(!showNotes)}
+        >
+          {showNotes ? "Hide Notes" : "Show Notes"}
+        </button>
       </div>
-      <div>
-        {audioReady && (
-          <div style={{ textAlign: "center", marginTop: "1rem" }}>
+      <div className="piano-functions-buttons flex flex-row gap-10">
+        <div className="basis-1/2">
+          {audioReady && (
+            <div style={{ textAlign: "center", marginTop: "1rem" }}>
+              <select
+                value={selectedSongId}
+                onChange={(e) => setSelectedSongId(e.target.value)}
+                disabled={isSongGameActive}
+                className="select select-bordered"
+              >
+                {Object.entries(songs).map(([id, song]) => (
+                  <option key={id} value={id}>
+                    {song.name}
+                  </option>
+                ))}
+              </select>
+              {/* 
             <button
               onClick={isSongGameActive ? stopSongGame : startSongGame}
               className={
                 isSongGameActive ? "btn btn-warning" : "btn btn-success"
               }
+              disabled={!selectedSongId}
             >
-              {isSongGameActive ? "Stop Song Game" : "Start Song game"}
-            </button>
-          </div>
-        )}
+              {isSongGameActive
+                ? `Stop ${songs[selectedSongId]?.name} Game`
+                : `Start ${songs[selectedSongId]?.name} Game`}
+            </button> */}
+            </div>
+          )}
+        </div>
+        <div>
+          {audioReady && (
+            <div style={{ textAlign: "center", marginTop: "1rem" }}>
+              <button
+                onClick={isSongGameActive ? stopSongGame : startSongGame}
+                className={
+                  isSongGameActive ? "btn btn-warning" : "btn btn-success"
+                }
+              >
+                {isSongGameActive ? "Stop Song Game" : "Start Song game"}
+              </button>
+            </div>
+          )}
+        </div>
+        <div>
+          {audioReady && (
+            <div style={{ textAlign: "center", marginTop: "1rem" }}>
+              <button
+                onClick={() => setShowLabels((prev) => !prev)}
+                className="btn btn-info"
+              >
+                {showLabels ? "Hide Key Labels" : "Show Key Labels"}
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </>
   )
