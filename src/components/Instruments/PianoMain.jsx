@@ -257,8 +257,13 @@ export default function PianoMain() {
 
   const startSongGame = () => {
     setIsSongGameActive(true)
-    setCurrentSongStep(0)
     setTargetNote(twinkleNotes[0])
+  }
+
+  const stopSongGame = () => {
+    setIsSongGameActive(false)
+    setCurrentSongStep(0)
+    setTargetNote(null)
   }
 
   return (
@@ -299,11 +304,12 @@ export default function PianoMain() {
         {audioReady && (
           <div style={{ textAlign: "center", marginTop: "1rem" }}>
             <button
-              onClick={startSongGame}
-              className="btn btn-success"
-              disabled={isSongGameActive}
+              onClick={isSongGameActive ? stopSongGame : startSongGame}
+              className={
+                isSongGameActive ? "btn btn-warning" : "btn btn-success"
+              }
             >
-              Start Song Game
+              {isSongGameActive ? "Stop Song Game" : "Start Song game"}
             </button>
           </div>
         )}
@@ -331,9 +337,11 @@ learned how this thing works overall, time to add a "song game" mechanism for al
 /* 
      current step(short overview):
     -> - Finishing the piano and preparing the app for an alpha launch
-         -- So the final updates for the piano are the simplest song games possible, and a way to save the user's score and perhaps share it with others.
-         -- Time to add "song games" with a user score system (https://recursivearts.com/virtual-piano/)". gotta add this one
-         -- Add Saving or sharing configurations or recordings features (I'll try to add this, If it turns out to be too challenging, gotta skip it for now)
+         -- fully read and understand the recent changes (why use ref and states together?)
+         -- Use "song game implementation" chat log on Deepseek to resume this bit
+         -- The song game feature is good enough in its current state. The scoring system will only track how many melodies the user has finished. Once the app is ready for the next phase of deveplopment, I'll add features such as tracking the speed and accuracy of the notes
+         -- I think I'm gonna add two more melodies beside the current one. I also need to come up with a better way of storing these giant arrays (I think another jsx file would be ok? gotta ask AI)
+         -- Then I'll add a scoring system that trackes how many melodies the user has finished. And this will be the final feature for this piano in its current phase
          -- implement User profiles and settings   (The most minimal version possible)
          -- The app must be ready for a small test by a handful users at this point(also a great excuse to test deployment with react and firebase). See how it goes =)
          -- Trying to fix the responsiveness issues for the paino gets too complicated on the dev server, it's better to revisit this issue after it's been deployed and is actually accessible on smaller devices
