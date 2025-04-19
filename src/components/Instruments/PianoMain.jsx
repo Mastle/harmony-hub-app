@@ -60,6 +60,7 @@ export default function PianoMain() {
   const [targetNote, setTargetNote] = useState(null)
   const [selectedSongId, setSelectedSongId] = useState("twinkle")
   const [showNotes, setShowNotes] = useState(false)
+  const [userScore, setUserScore] = useState(0) //current step: this has to be set to whatever comes from the database
   const currentSongNotesRef = useRef(songs.twinkle.notes)
   const isSongGameActiveRef = useRef(false)
   const songStepRef = useRef(0)
@@ -105,6 +106,8 @@ export default function PianoMain() {
         setCurrentSongStep(nextStep)
         setTargetNote(currentSongNotesRef.current[nextStep])
       } else {
+        // current step: this is the end of the game. This is where I can start adding to the user score
+        setUserScore((prev) => (prev += 100))
         setIsSongGameActive(false)
         setCurrentSongStep(0)
         setTargetNote(null)
@@ -156,7 +159,6 @@ export default function PianoMain() {
     window.addEventListener("keydown", function (e) {
       if (e.key === "Tab") {
         e.preventDefault()
-        // Do your own thing here if needed
       }
     })
 
@@ -176,8 +178,6 @@ export default function PianoMain() {
     setIsSongGameActive(true)
     setCurrentSongStep(0)
     setTargetNote(currentSongNotesRef.current[0])
-
-    //Current step: The song that the setTargetNote() function receives should not be hard-coded. it should be determined from user choice. Let's start by adding two more pieces at least, and I also have to come up with the best way to store thse giant arrays
   }
 
   const stopSongGame = () => {
@@ -209,6 +209,9 @@ export default function PianoMain() {
         )}
       </div>
       <div className="text-center mb-8">
+        <div>
+          <p className="p-5 text-xl">User score: {userScore}</p>
+        </div>
         {showNotes &&
           currentSongNotesRef.current.map((e) => (
             <span className="mx-2 text-xl">{e[0]}</span>
@@ -236,18 +239,6 @@ export default function PianoMain() {
                   </option>
                 ))}
               </select>
-              {/* 
-            <button
-              onClick={isSongGameActive ? stopSongGame : startSongGame}
-              className={
-                isSongGameActive ? "btn btn-warning" : "btn btn-success"
-              }
-              disabled={!selectedSongId}
-            >
-              {isSongGameActive
-                ? `Stop ${songs[selectedSongId]?.name} Game`
-                : `Start ${songs[selectedSongId]?.name} Game`}
-            </button> */}
             </div>
           )}
         </div>
@@ -283,28 +274,11 @@ export default function PianoMain() {
 }
 
 /* 
-TODO(Creating the first song game):
-
-1. **“Twinkle, Twinkle, Little Star”
-
-notes = [C  C  G  G  A  A  G  
-F  F  E  E  D  D  C] 
-
-Keyboard shortcuts = [u u z z x x z
-p p o o i i u]
-
-learned how this thing works overall, time to add a "song game" mechanism for allowing users to play their favorite melodies
-
-
-*/
-
-/* 
      current step(short overview):
     -> - Finishing the piano and preparing the app for an alpha launch
          -- fully read and understand the recent changes (why use ref and states together?)
          -- Use "song game implementation" chat log on Deepseek to resume this bit
          -- The song game feature is good enough in its current state. The scoring system will only track how many melodies the user has finished. Once the app is ready for the next phase of deveplopment, I'll add features such as tracking the speed and accuracy of the notes
-         -- I think I'm gonna add two more melodies beside the current one. I also need to come up with a better way of storing these giant arrays (I think another jsx file would be ok? gotta ask AI)
          -- Then I'll add a scoring system that trackes how many melodies the user has finished. And this will be the final feature for this piano in its current phase
          -- implement User profiles and settings   (The most minimal version possible)
          -- The app must be ready for a small test by a handful users at this point(also a great excuse to test deployment with react and firebase). See how it goes =)
@@ -322,17 +296,3 @@ learned how this thing works overall, time to add a "song game" mechanism for al
 //  TODO: currently, the piano relies on user interaction to start. Is it worth it to look into ways to start it without asking the user to interact?
 //  TODO: The best online piano at the moment (https://recursivearts.com/virtual-piano/) is utilizing unity to have the best simulation possible. How's that even possible?
 //  TODO: The piano output doesn't sustain that well right now, utilinzg tone.reverb and tone.eq seems to add artifacts to the audio. What to do?
-
-/*
-
-{audioReady && (
-  <div style={{ textAlign: "center", marginTop: "1rem" }}>
-    <button
-      onClick={startSongGame}
-      className="btn btn-success"
-      disabled={isSongGameActive}
-    >
-      Start Song Game
-    </button>
-  </div>
-*/
