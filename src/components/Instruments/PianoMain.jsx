@@ -79,7 +79,10 @@ export default function PianoMain() {
   }, [])
 
   useEffect(() => {
-    if (!user?.id) return
+    if (!user?.id) {
+      setUserScore(0)
+      return
+    }
     fetch(`${API_BASE}/users/${user.id}`)
       .then((res) => res.json())
       .then((data) => {
@@ -91,6 +94,7 @@ export default function PianoMain() {
   // helper to patch new score
   const updateScoreInDb = useCallback(
     (newScore) => {
+      console.log(user)
       if (!user?.id) return
       fetch(`${API_BASE}/users/${user.id}`, {
         method: "PATCH",
