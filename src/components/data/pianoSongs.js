@@ -114,4 +114,11 @@ export const songs = {
       "G4",
     ],
   },
+  pingle: {
+    name: "pingle",
+    notes: [
+      // “Jingle bells, jingle bells, jingle all the way”
+      "E4",
+    ],
+  },
 }
