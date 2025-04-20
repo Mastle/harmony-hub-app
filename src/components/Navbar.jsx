@@ -45,6 +45,9 @@ const Navbar = () => {
             <NavLink to="/player" className={linkClass}>
               Player
             </NavLink>
+            {user && <NavLink to="/account" className={linkClass}>
+              account
+            </NavLink>}
             {user ? (
               <button
                 onClick={handleLogout}
@@ -119,6 +122,15 @@ const Navbar = () => {
                     </button>
                   )}
                 </div>
+                {user && (
+                  <NavLink
+                    to="/account"
+                    className={linkClass}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Account
+                  </NavLink>
+                )}
               </div>
             </div>
           )}

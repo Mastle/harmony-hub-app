@@ -260,8 +260,10 @@ export default function PianoMain() {
           <p className="p-5 text-xl">User score: {userScore}</p>
         </div>
         {showNotes &&
-          currentSongNotesRef.current.map((e) => (
-            <span className="mx-2 text-xl">{e[0]}</span>
+          currentSongNotesRef.current.map((e, index) => (
+            <span key={index} className="mx-2 text-xl">
+              {e[0]}
+            </span>
           ))}
         <button
           className="block mx-auto mt-5 btn btn-info"
@@ -320,11 +322,8 @@ export default function PianoMain() {
   )
 }
 
-
-
 //  TODO: loading 36 mp3 files seems inefficient. I need to come up with a better solution that helps me maintain the highest quality possible
 //  TODO: currently, the piano relies on user interaction to start. Is it worth it to look into ways to start it without asking the user to interact?
 //  TODO: The best online piano at the moment (https://recursivearts.com/virtual-piano/) is utilizing unity to have the best simulation possible. How's that even possible?
 //  TODO: The piano output doesn't sustain that well right now, utilinzg tone.reverb and tone.eq seems to add artifacts to the audio. What to do?
 //  TODO: The song game just ends abruptly and the UI resets. That's not the cleanest way to end the game. Must reconsider this part for the next phase of the app
-

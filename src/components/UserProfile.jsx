@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect } from "react"
 import { User, Mail, Lock, Check } from "lucide-react"
 import { useAuth } from "./Auth/AuthContext"
@@ -33,7 +35,7 @@ export default function UserProfile() {
   // Basic validation
   const validate = () => {
     const errs = {}
-    if (!formData.name) errs.name = "Name is required"
+    // if (!formData.name) errs.name = "Name is required"
     if (!formData.email.match(/^\S+@\S+\.\S+$/)) errs.email = "Invalid email"
     if (formData.password && formData.password !== confirmPw)
       errs.password = "Passwords do not match"
