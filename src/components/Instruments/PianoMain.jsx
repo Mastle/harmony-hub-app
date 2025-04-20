@@ -55,7 +55,7 @@ const Piano = ({ keys, onPlay, onStop, isActive, isTarget, showLabels }) => (
 )
 
 export default function PianoMain() {
-  const { user } = useAuth()
+  const { user, isAuthModalOpen } = useAuth()
   const [audioReady, setAudioReady] = useState(false)
   const [activeNotes, setActiveNotes] = useState(new Set())
   const [showLabels, setShowLabels] = useState(false)
@@ -64,7 +64,7 @@ export default function PianoMain() {
   const [targetNote, setTargetNote] = useState(null)
   const [selectedSongId, setSelectedSongId] = useState("twinkle")
   const [showNotes, setShowNotes] = useState(false)
-  const [userScore, setUserScore] = useState(0) //current step: this has to be set to whatever comes from the database
+  const [userScore, setUserScore] = useState(0)
 
   const currentSongNotesRef = useRef(songs.twinkle.notes)
   const isSongGameActiveRef = useRef(false)
@@ -118,7 +118,6 @@ export default function PianoMain() {
   }, [targetNote])
 
   useEffect(() => {
-    // Initialize Tone.js sampler
     sampler.current = new Tone.Sampler({
       urls: keysData.reduce((acc, { note }) => {
         acc[note] = `${note}.mp3`
@@ -137,14 +136,12 @@ export default function PianoMain() {
       setActiveNotes((prev) => new Set([...prev, note]))
       sampler.current?.triggerAttack(note)
 
-      // Song game logic
       if (isSongGameActiveRef.current && note === targetNoteRef.current) {
         const nextStep = songStepRef.current + 1
         if (nextStep < currentSongNotesRef.current.length) {
           setCurrentSongStep(nextStep)
           setTargetNote(currentSongNotesRef.current[nextStep])
         } else {
-          // current step: this is the end of the game. This is where I can start adding to the user score
           setTimeout(() => {
             setUserScore((prev) => {
               const newScore = prev + 100
@@ -200,20 +197,24 @@ export default function PianoMain() {
 
   useEffect(() => {
     if (!audioReady) return
+    if (isAuthModalOpen) return
 
-    window.addEventListener("keydown", handleKeyDown)
-    window.addEventListener("keyup", handleKeyUp)
-    window.addEventListener("keydown", function (e) {
+    function removeTabDefaultFunction(e) {
       if (e.key === "Tab") {
         e.preventDefault()
       }
-    })
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    window.addEventListener("keyup", handleKeyUp)
+    window.addEventListener("keydown", removeTabDefaultFunction)
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
       window.removeEventListener("keyup", handleKeyUp)
+      window.removeEventListener("keydown", removeTabDefaultFunction)
     }
-  }, [audioReady, handleKeyDown, handleKeyUp])
+  }, [audioReady, handleKeyDown, handleKeyUp, isAuthModalOpen])
 
   useEffect(() => {
     currentSongNotesRef.current = songs[selectedSongId]?.notes || []
@@ -323,7 +324,6 @@ export default function PianoMain() {
 /* 
      current step(short overview):
     -> - Finishing the piano and preparing the app for an alpha launch
-         -- Adding user score -> updating the user score in the DB and the app state caused a lot of problems for AI, I'll do a deep dive tomorrow and see what is the best way to go about it 
          -- implement User profiles and settings   (The most minimal version possible)
          -- The app must be ready for a small test by a handful users at this point(also a great excuse to test deployment with react and firebase). See how it goes =)
          -- Trying to fix the responsiveness issues for the paino gets too complicated on the dev server, it's better to revisit this issue after it's been deployed and is actually accessible on smaller devices
@@ -341,3 +341,4 @@ export default function PianoMain() {
 //  TODO: The best online piano at the moment (https://recursivearts.com/virtual-piano/) is utilizing unity to have the best simulation possible. How's that even possible?
 //  TODO: The piano output doesn't sustain that well right now, utilinzg tone.reverb and tone.eq seems to add artifacts to the audio. What to do?
 //  TODO: The song game just ends abruptly and the UI resets. That's not the cleanest way to end the game. Must reconsider this part for the next phase of the app
+

@@ -10,7 +10,7 @@
       "id": "bf23",
       "email": "amir@gmail.com",
       "password": "amir",
-      "score": 1300
+      "score": 1600
     },
     {
       "id": "0a8d",
@@ -29,6 +29,12 @@
       "email": "lauren@gmail.com",
       "password": "lauren",
       "score": 0
+    },
+    {
+      "id": "a5e7",
+      "email": "james@gmail.com",
+      "password": "james",
+      "score": 300
     }
   ],
   "songs": [
