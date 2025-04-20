@@ -91,7 +91,6 @@ export default function PianoMain() {
       .catch((err) => console.error("Failed to load user score:", err))
   }, [user])
 
-  // helper to patch new score
   const updateScoreInDb = useCallback(
     (newScore) => {
       console.log(user)
@@ -321,20 +320,7 @@ export default function PianoMain() {
   )
 }
 
-/* 
-     current step(short overview):
-    -> - Finishing the piano and preparing the app for an alpha launch
-         -- implement User profiles and settings   (The most minimal version possible)
-         -- The app must be ready for a small test by a handful users at this point(also a great excuse to test deployment with react and firebase). See how it goes =)
-         -- Trying to fix the responsiveness issues for the paino gets too complicated on the dev server, it's better to revisit this issue after it's been deployed and is actually accessible on smaller devices
-         -- If harmony hub succeeds in attracting users (or it becomes a safe bet for basing my software career), I'll look into the best way to gamify playing this piano. I'll come up with the best ways to incentivize users to play the piano, and have a blast as they're learning how music works
-        - move on to the music player and real time note highlighting (once this feature has been added, Development on this project should stop. I have to shift
-       my focus on to  Next.js, Typescript, An online shop that is the most sophisticated it can be in terms of looks and features. However its scale does have to
-       be compatible with the fact that it's a portfolio project at the end of the day. Once ATP is ready with all the portfolio projects, I'll 
-       come up with the best plan to divide my attention acroses these projects in such a way that  I can make some real dough, I keep evolving as a dev, and I'm doing
-       what I love (a balance through the mixture of these three))
-       - Joyful Speaking is next
- */
+
 
 //  TODO: loading 36 mp3 files seems inefficient. I need to come up with a better solution that helps me maintain the highest quality possible
 //  TODO: currently, the piano relies on user interaction to start. Is it worth it to look into ways to start it without asking the user to interact?

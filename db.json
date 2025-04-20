@@ -10,7 +10,8 @@
       "id": "bf23",
       "email": "amir@gmail.com",
       "password": "amir",
-      "score": 1600
+      "score": 1600,
+      "name": "Amirali"
     },
     {
       "id": "0a8d",
@@ -20,7 +21,7 @@
     },
     {
       "id": "27a0",
-      "email": "ayy@gmail.com",
+      "email": "ayy@gmail.c om",
       "password": "ayy",
       "score": 0
     },

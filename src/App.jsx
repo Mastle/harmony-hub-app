@@ -7,6 +7,7 @@ import HomePage from "./components/HomePage"
 import Instruments from "./components/Instruments/Instruments"
 import PianoMain from "./components/Instruments/PianoMain"
 import MusicPlayer from "./components/Music/MusicPlayer"
+import UserProfile from "./components/UserProfile"
 import AuthModal from "./components/Auth/AuthModal"
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
+          <Route path="account" element={<UserProfile />} />
           <Route path="instruments" element={<Instruments />} />
           <Route path="instruments/piano" element={<PianoMain />} />
           <Route path="player" element={<MusicPlayer />} />
