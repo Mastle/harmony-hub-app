@@ -44,7 +44,9 @@ export default function UserProfile() {
   }
 
   // Save handler
-  const handleSave = async () => {
+  const handleSave = async (e) => {
+    e.preventDefault()
+
     if (!validate()) return
     setLoading(true)
 
@@ -70,108 +72,111 @@ export default function UserProfile() {
   return (
     <div data-theme="dracula" className="min-h-screen bg-base-200 p-4">
       <div className="card w-full max-w-md mx-auto bg-base-100 shadow-md">
-        <div className="card-body space-y-4">
-          {/* ID (read-only) */}
-          <div>
-            <label className="label">
-              <span className="label-text">User ID</span>
-            </label>
-            <input
-              type="text"
-              className="input input-bordered w-full"
-              value={user.id}
-              readOnly
-            />
-          </div>
-
-          {/* Score (display only) */}
-          <div>
-            <label className="label">
-              <span className="label-text">Score</span>
-            </label>
-            <div className="input input-bordered w-full">{user.score}</div>
-          </div>
-
-          {/* Name */}
-          <div>
-            <label className="label">
-              <span className="label-text">Name</span>
-            </label>
-            <input
-              name="name"
-              type="text"
-              className="input input-bordered w-full"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-            {errors.name && <p className="text-error">{errors.name}</p>}
-          </div>
-
-          {/* Email */}
-          <div>
-            <label className="label">
-              <span className="label-text">Email</span>
-            </label>
-            <div className="relative">
-              <span className="absolute left-3 top-3">
-                <Mail size={16} />
-              </span>
+        <form onSubmit={handleSave}>
+          <div className="card-body space-y-4">
+            <div>
+              <label className="label">
+                <span className="label-text">User ID</span>
+              </label>
               <input
-                name="email"
-                type="email"
-                className="input input-bordered w-full pl-10"
-                value={formData.email}
+                type="text"
+                className="input input-bordered w-full"
+                value={user.id}
+                readOnly
+              />
+            </div>
+
+            {/* Score (display only) */}
+            <div>
+              <label className="label">
+                <span className="label-text">Score</span>
+              </label>
+              <div className="input input-bordered w-full">{user.score}</div>
+            </div>
+
+            {/* Name */}
+            <div>
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                name="name"
+                type="text"
+                className="input input-bordered w-full"
+                value={formData.name}
                 onChange={handleChange}
                 required
               />
+              {errors.name && <p className="text-error">{errors.name}</p>}
             </div>
-            {errors.email && <p className="text-error">{errors.email}</p>}
-          </div>
 
-          {/* Password */}
-          <div>
-            <label className="label">
-              <span className="label-text">New Password</span>
-            </label>
-            <div className="relative">
-              <span className="absolute left-3 top-3">
-                <Lock size={16} />
-              </span>
+            {/* Email */}
+            <div>
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <div className="relative">
+                <span className="absolute left-3 top-3">
+                  <Mail size={16} />
+                </span>
+                <input
+                  name="email"
+                  type="email"
+                  className="input input-bordered w-full pl-10"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              {errors.email && <p className="text-error">{errors.email}</p>}
+            </div>
+
+            {/* Password */}
+            <div>
+              <label className="label">
+                <span className="label-text">New Password</span>
+              </label>
+              <div className="relative">
+                <span className="absolute left-3 top-3">
+                  <Lock size={16} />
+                </span>
+                <input
+                  name="password"
+                  type="password"
+                  className="input input-bordered w-full pl-10"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            {/* Confirm Password */}
+            <div>
+              <label className="label">
+                <span className="label-text">Confirm Password</span>
+              </label>
               <input
-                name="password"
                 type="password"
-                className="input input-bordered w-full pl-10"
-                value={formData.password}
-                onChange={handleChange}
+                className="input input-bordered w-full"
+                value={confirmPw}
+                onChange={(e) => setConfirmPw(e.target.value)}
               />
+              {errors.password && (
+                <p className="text-error">{errors.password}</p>
+              )}
             </div>
-          </div>
 
-          {/* Confirm Password */}
-          <div>
-            <label className="label">
-              <span className="label-text">Confirm Password</span>
-            </label>
-            <input
-              type="password"
-              className="input input-bordered w-full"
-              value={confirmPw}
-              onChange={(e) => setConfirmPw(e.target.value)}
-            />
-            {errors.password && <p className="text-error">{errors.password}</p>}
+            {/* Save Button */}
+            <button
+              className="btn btn-primary w-full flex items-center justify-center gap-2"
+              type="submit"
+              disabled={loading}
+            >
+              <Check size={20} />
+              {loading ? "Saving..." : "Save"}
+            </button>
           </div>
-
-          {/* Save Button */}
-          <button
-            className="btn btn-primary w-full flex items-center justify-center gap-2"
-            onClick={handleSave}
-            disabled={loading}
-          >
-            <Check size={20} />
-            {loading ? "Saving..." : "Save"}
-          </button>
-        </div>
+        </form>
       </div>
     </div>
   )
