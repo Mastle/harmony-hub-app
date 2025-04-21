@@ -5,7 +5,7 @@ import { User, Mail, Lock, Check } from "lucide-react"
 import { useAuth } from "./Auth/AuthContext"
 
 export default function UserProfile() {
-  const { user } = useAuth()
+  const { user, setUser } = useAuth()
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -53,6 +53,13 @@ export default function UserProfile() {
     const payload = { name: formData.name, email: formData.email }
     if (formData.password) payload.password = formData.password
 
+    setUser((prev) => ({
+      ...prev,
+      password: payload.password,
+      name: payload.name,
+      email: payload.email,
+    }))
+
     try {
       await fetch(`http://localhost:3001/users/${user.id}`, {
         method: "PATCH",
@@ -78,12 +85,6 @@ export default function UserProfile() {
               <label className="label">
                 <span className="label-text">User ID</span>
               </label>
-              {/* <input
-                type="text"
-                className="input input-bordered w-full"
-                value={user.id}
-                readOnly
-              /> */}
               <span className="block mt-2">{user.id}</span>
             </div>
 
@@ -166,7 +167,6 @@ export default function UserProfile() {
                 <p className="text-error">{errors.password}</p>
               )}
             </div>
-
             {/* Save Button */}
             <button
               className="btn btn-primary w-full flex items-center justify-center gap-2"
@@ -187,12 +187,9 @@ export default function UserProfile() {
      current step(short overview):
     -> - Finishing the piano and preparing the app for an alpha launch
          -- implement User profiles and settings   (The most minimal version possible) ->
-            --- Certain changes need to be made to the Auth system. The user localstorage object does not update after account information has been changed
-            --- The UI needs to be improved, more margin and better placement
-            --- Use daisyUI docs to better style this section
+            --- route protection for "account route" from users who aren't logged in
        
-       
-          -- so before deployment, I wanna see how testing an app works.I gotta get good at that as a competitive dev, I think it was called jest or jester? the useful thing for testing react apps, there's a bunch of them and learn how it works, implement it on this app to see what they're about and deployment is next
+         --  (next session, basic functionalities are finished and it's test time baby!) so before deployment, I wanna see how testing an app works.I gotta get good at that as a competitive dev, I think it was called jest or jester? the useful thing for testing react apps, there's a bunch of them and learn how it works, implement it on this app to see what they're about and deployment is next
          -- The app must be ready for a small test by a handful users at this point(also a great excuse to test deployment with react and firebase). See how it goes =)
          -- Trying to fix the responsiveness issues for the paino gets too complicated on the dev server, it's better to revisit this issue after it's been deployed and is actually accessible on smaller devices
          -- I also think now (early post alpha release) is a great time to consider RSC and React 19 (stuff like server side components, ssr and form actions)

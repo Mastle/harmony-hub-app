@@ -2,6 +2,7 @@
 
 import { Routes, Route } from "react-router"
 import { AuthProvider } from "./components/Auth/AuthContext"
+import ProtectedRoute from "./components/ProtectedRoute"
 import MainLayout from "./components/MainLayout"
 import HomePage from "./components/HomePage"
 import Instruments from "./components/Instruments/Instruments"
@@ -16,7 +17,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="account" element={<UserProfile />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="account" element={<UserProfile />} />
+          </Route>
           <Route path="instruments" element={<Instruments />} />
           <Route path="instruments/piano" element={<PianoMain />} />
           <Route path="player" element={<MusicPlayer />} />
