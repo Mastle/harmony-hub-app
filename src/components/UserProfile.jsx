@@ -70,20 +70,21 @@ export default function UserProfile() {
   if (!user) return <div>Loading...</div>
 
   return (
-    <div data-theme="dracula" className="min-h-screen bg-base-200 p-4">
-      <div className="card w-full max-w-md mx-auto bg-base-100 shadow-md">
+    <div className="min-h-screen bg-base-200 p-4">
+      <div className="card w-full max-w-md mx-auto bg-base-100 shadow-md mt-36">
         <form onSubmit={handleSave}>
           <div className="card-body space-y-4">
             <div>
               <label className="label">
                 <span className="label-text">User ID</span>
               </label>
-              <input
+              {/* <input
                 type="text"
                 className="input input-bordered w-full"
                 value={user.id}
                 readOnly
-              />
+              /> */}
+              <span className="block mt-2">{user.id}</span>
             </div>
 
             {/* Score (display only) */}
@@ -91,7 +92,7 @@ export default function UserProfile() {
               <label className="label">
                 <span className="label-text">Score</span>
               </label>
-              <div className="input input-bordered w-full">{user.score}</div>
+              <span className="block mt-2 font-bold">{user.score}</span>
             </div>
 
             {/* Name */}
@@ -102,7 +103,7 @@ export default function UserProfile() {
               <input
                 name="name"
                 type="text"
-                className="input input-bordered w-full"
+                className="input input-bordered input-info w-full mt-2"
                 value={formData.name}
                 onChange={handleChange}
                 required
@@ -122,7 +123,7 @@ export default function UserProfile() {
                 <input
                   name="email"
                   type="email"
-                  className="input input-bordered w-full pl-10"
+                  className="input input-bordered input-info w-full  mt-2"
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -143,7 +144,7 @@ export default function UserProfile() {
                 <input
                   name="password"
                   type="password"
-                  className="input input-bordered w-full pl-10"
+                  className="input input-info input-bordered w-full mt-2"
                   value={formData.password}
                   onChange={handleChange}
                 />
@@ -157,7 +158,7 @@ export default function UserProfile() {
               </label>
               <input
                 type="password"
-                className="input input-bordered w-full"
+                className="input input-info input-bordered w-full mt-2"
                 value={confirmPw}
                 onChange={(e) => setConfirmPw(e.target.value)}
               />
@@ -186,14 +187,15 @@ export default function UserProfile() {
      current step(short overview):
     -> - Finishing the piano and preparing the app for an alpha launch
          -- implement User profiles and settings   (The most minimal version possible) ->
-          Time to implement the user profile page.
-          Let's start with the simplest version possible. Oh, this reminds me. What also needs to happen is a new item should be added to the navbar that allows the users to access their user profile page.
-          And I must set it up in such a way that  the menu item initially says "account", but if the user has now added the optional item of their user info, which is their name, it says "Hi, ${Name}". 
+            --- Certain changes need to be made to the Auth system. The user localstorage object does not update after account information has been changed
+            --- The UI needs to be improved, more margin and better placement
+            --- Use daisyUI docs to better style this section
        
        
           -- so before deployment, I wanna see how testing an app works.I gotta get good at that as a competitive dev, I think it was called jest or jester? the useful thing for testing react apps, there's a bunch of them and learn how it works, implement it on this app to see what they're about and deployment is next
          -- The app must be ready for a small test by a handful users at this point(also a great excuse to test deployment with react and firebase). See how it goes =)
          -- Trying to fix the responsiveness issues for the paino gets too complicated on the dev server, it's better to revisit this issue after it's been deployed and is actually accessible on smaller devices
+         -- I also think now (early post alpha release) is a great time to consider RSC and React 19 (stuff like server side components, ssr and form actions)
          -- If harmony hub succeeds in attracting users (or it becomes a safe bet for basing my software career), I'll look into the best way to gamify playing this piano. I'll come up with the best ways to incentivize users to play the piano, and have a blast as they're learning how music works
         - move on to the music player and real time note highlighting (once this feature has been added, Development on this project should stop. I have to shift
        my focus on to  Next.js, Typescript, An online shop that is the most sophisticated it can be in terms of looks and features. However its scale does have to

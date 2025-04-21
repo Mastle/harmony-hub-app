@@ -45,9 +45,11 @@ const Navbar = () => {
             <NavLink to="/player" className={linkClass}>
               Player
             </NavLink>
-            {user && <NavLink to="/account" className={linkClass}>
-              account
-            </NavLink>}
+            {user && (
+              <NavLink to="/account" className={linkClass}>
+                account
+              </NavLink>
+            )}
             {user ? (
               <button
                 onClick={handleLogout}
@@ -92,45 +94,48 @@ const Navbar = () => {
                   </NavLink>
                 </div>
                 <div className="pt-2 border-t border-secondary-content">
-                  {user ? (
-                    <button
-                      onClick={() => {
-                        handleLogout()
-                        setIsMenuOpen(false)
-                      }}
-                      className={
-                        linkClass({ isActive: false }) +
-                        " w-full flex items-center justify-center"
-                      }
+                  <span className="block mt-2"></span>
+                  {user && (
+                    <NavLink
+                      to="/account"
+                      className={linkClass}
+                      onClick={() => setIsMenuOpen(false)}
                     >
-                      Logout
-                      <LogOut className="ml-2" size={20} />
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => {
-                        setIsAuthModalOpen(true)
-                        setIsMenuOpen(false)
-                      }}
-                      className={
-                        linkClass({ isActive: false }) +
-                        " w-full flex items-center justify-center"
-                      }
-                    >
-                      Login
-                      <LogIn className="ml-2" size={20} />
-                    </button>
+                      Account
+                    </NavLink>
                   )}
+                  <div>
+                    {user ? (
+                      <button
+                        onClick={() => {
+                          handleLogout()
+                          setIsMenuOpen(false)
+                        }}
+                        className={
+                          linkClass({ isActive: false }) +
+                          " w-full flex items-center justify-center"
+                        }
+                      >
+                        Logout
+                        <LogOut className="ml-2" size={20} />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          setIsAuthModalOpen(true)
+                          setIsMenuOpen(false)
+                        }}
+                        className={
+                          linkClass({ isActive: false }) +
+                          " w-full flex items-center justify-center"
+                        }
+                      >
+                        Login
+                        <LogIn className="ml-2" size={20} />
+                      </button>
+                    )}
+                  </div>
                 </div>
-                {user && (
-                  <NavLink
-                    to="/account"
-                    className={linkClass}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Account
-                  </NavLink>
-                )}
               </div>
             </div>
           )}
