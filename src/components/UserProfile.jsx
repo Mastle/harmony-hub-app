@@ -182,22 +182,3 @@ export default function UserProfile() {
     </div>
   )
 }
-
-/* 
-     current step(short overview):
-    -> - Finishing the piano and preparing the app for an alpha launch
-         -- implement User profiles and settings   (The most minimal version possible) ->
-            --- route protection for "account route" from users who aren't logged in
-       
-         --  (next session, basic functionalities are finished and it's test time baby!) so before deployment, I wanna see how testing an app works.I gotta get good at that as a competitive dev, I think it was called jest or jester? the useful thing for testing react apps, there's a bunch of them and learn how it works, implement it on this app to see what they're about and deployment is next
-         -- The app must be ready for a small test by a handful users at this point(also a great excuse to test deployment with react and firebase). See how it goes =)
-         -- Trying to fix the responsiveness issues for the paino gets too complicated on the dev server, it's better to revisit this issue after it's been deployed and is actually accessible on smaller devices
-         -- I also think now (early post alpha release) is a great time to consider RSC and React 19 (stuff like server side components, ssr and form actions)
-         -- If harmony hub succeeds in attracting users (or it becomes a safe bet for basing my software career), I'll look into the best way to gamify playing this piano. I'll come up with the best ways to incentivize users to play the piano, and have a blast as they're learning how music works
-        - move on to the music player and real time note highlighting (once this feature has been added, Development on this project should stop. I have to shift
-       my focus on to  Next.js, Typescript, An online shop that is the most sophisticated it can be in terms of looks and features. However its scale does have to
-       be compatible with the fact that it's a portfolio project at the end of the day. Once ATP is ready with all the portfolio projects, I'll 
-       come up with the best plan to divide my attention acroses these projects in such a way that  I can make some real dough, I keep evolving as a dev, and I'm doing
-       what I love (a balance through the mixture of these three))
-       - Joyful Speaking is next
- */
