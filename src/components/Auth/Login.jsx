@@ -22,8 +22,8 @@ export default function Login() {
 
     if (user) {
       localStorage.setItem("user", JSON.stringify(user))
-      setUser(user) 
-      setIsAuthModalOpen(false) 
+      setUser(user)
+      setIsAuthModalOpen(false)
     } else {
       alert("Invalid credentials")
     }

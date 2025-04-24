@@ -6,5 +6,6 @@ export default defineConfig({
   test: {
     globals: "true",
     environment: "jsdom", // Simulate a browser environment
+    setupFiles: "./src/setupTests.js",
   },
 })
