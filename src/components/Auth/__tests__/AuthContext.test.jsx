@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, it, expect, vi, beforeEach } from "vitest"
+import { act, render, screen } from "@testing-library/react"
+import { beforeEach } from "vitest"
 import { AuthProvider, useAuth } from "../AuthContext"
 
 function TestComponent() {
@@ -44,7 +44,8 @@ describe("AuthContext", () => {
         <TestComponent />
       </AuthProvider>
     )
-    screen.getByText("Open Modal").click()
+
+    act(() => screen.getByText("Open Modal").click())
     expect(screen.getByTestId("modal").textContent).toBe("Open")
   })
 
@@ -55,13 +56,15 @@ describe("AuthContext", () => {
         <TestComponent />
       </AuthProvider>
     )
-    screen.getByText("Logout").click()
+
+    act(() => screen.getByText("Logout").click())
+
     expect(screen.getByTestId("user").textContent).toBe("No user")
     expect(localStorage.getItem("user")).toBe(null)
   })
 })
 
-/* 
+/*.
      current step(short overview):
     -> - Finishing the piano and preparing the app for an alpha launch
          -- So, Vitest is the way to go for testing. first I'm gonna test it on a sample repo, then I have to figure out what test actually suits my current project and what its scale should be.
