@@ -12,18 +12,22 @@ export default function Register() {
     e.preventDefault()
     const emailToLowerCase = email.toLowerCase()
     const passwordToLowerCase = password.toLowerCase()
-    const response = await fetch("http://localhost:3001/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: emailToLowerCase,
-        password: passwordToLowerCase,
-      }),
-    })
-    const user = await response.json()
-    localStorage.setItem("user", JSON.stringify(user))
-    setUser(user)
-    setIsAuthModalOpen(false)
+    try {
+      const response = await fetch("http://localhost:3001/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: emailToLowerCase,
+          password: passwordToLowerCase,
+        }),
+      })
+      const user = await response.json()
+      localStorage.setItem("user", JSON.stringify(user))
+      setUser(user)
+      setIsAuthModalOpen(false)
+    } catch {
+      alert("Failed to register")
+    }
   }
 
   return (

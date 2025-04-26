@@ -102,6 +102,7 @@ describe("Login component", () => {
      current step(short overview):
     -> - Finishing the piano and preparing the app for an alpha launch
          -- Add register.test.jsx, and once that's done, start studying the tests
+         --- Move on to testing the other parts with gpt
             
             1. **Authentication utilities** (unit + integration)
             2. **Piano event handling** (unit + integration)
