@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react"
 import { vi } from "vitest"
-import Login from "../Login"
+import Login from "../LogIn.jsx"
 import { useAuth } from "../AuthContext"
 
 vi.mock("../AuthContext")
@@ -101,17 +101,9 @@ describe("Login component", () => {
 /*.
      current step(short overview):
     -> - Finishing the piano and preparing the app for an alpha launch
-         -- Add register.test.jsx, and once that's done, start studying the tests
-         --- Move on to testing the other parts with gpt
-            
-            1. **Authentication utilities** (unit + integration)
-            2. **Piano event handling** (unit + integration)
-            3. **Song-player state transitions** (unit + integration)
-            4. **One E2E happy-path** covering login → play → logout
-
-
-         -- It's time for firebase integration!
-         -- The app must be ready for a small test by a handful of users at this point(also a great excuse to test deployment with react and firebase). See how it goes =)
+         -- And the next one is: It's time for Supabase integration! -> SupaBase database and client have been set up successfuly, it's time to replace the mock backend!
+         -- The next step is to add the tests to the CI workflow (continuous integration) routine 
+         -- The app must be ready for a small test by a handful of users at this point(also a great excuse to test deployment with react and Supabase). See how it goes =)
          -- Trying to fix the responsiveness issues for the paino gets too complicated on the dev server, it's better to revisit this issue after it's been deployed and is actually accessible on smaller devices
          -- I also think now (early post alpha release) is a great time to consider RSC and React 19 (stuff like server side components, ssr and form actions)
          -- If harmony hub succeeds in attracting users (or it becomes a safe bet for basing my software career), I'll look into the best way to gamify playing this piano. I'll come up with the best ways to incentivize users to play the piano, and have a blast as they're learning how music works
