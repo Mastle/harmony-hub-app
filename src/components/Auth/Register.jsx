@@ -3,36 +3,35 @@
 import { useState } from "react"
 import { useAuth } from "./AuthContext"
 import { supabase } from "../../supaBaseClient.js"
+import { fetchUserProfile } from "../../utils/fetchUserProfile"
 
 export default function Register() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const { setUser, setIsAuthModalOpen } = useAuth()
-
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const emailToLowerCase = email.toLowerCase()
-    const passwordToLowerCase = password.toLowerCase()
+    const emailLower = email.toLowerCase()
+    const passwordToUse = password
 
     try {
       const { data, error } = await supabase.auth.signUp({
-        email: emailToLowerCase,
-        password: passwordToLowerCase,
+        email: emailLower,
+        password: passwordToUse,
       })
-
       if (error) throw error
 
-      const user = data.user
+      const { id, email: userEmail } = data.user
+      // On sign-up, profile row may not exist yet if you're using a trigger.
+      // If so, you may need to insert a default row or wait for the trigger.
+      const profile = await fetchUserProfile(id)
 
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ email: user.email, id: user.id })
-      )
-      setUser({ email: user.email, id: user.id })
+      localStorage.setItem("user", JSON.stringify({ id, email: userEmail }))
+      setUser({ id, email: userEmail, ...profile })
       setIsAuthModalOpen(false)
-    } catch (error) {
-      console.error("Supabase registration error:", error.message)
-      alert("Failed to register: " + error.message)
+    } catch (err) {
+      console.error("Registration error:", err)
+      alert(err.message || "Registration failed")
     }
   }
 

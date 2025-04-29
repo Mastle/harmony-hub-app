@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { User, Mail, Lock, Check } from "lucide-react"
+import { Mail, Lock, Check } from "lucide-react"
 import { useAuth } from "./Auth/AuthContext"
 
 export default function UserProfile() {
@@ -35,7 +35,6 @@ export default function UserProfile() {
   // Basic validation
   const validate = () => {
     const errs = {}
-    // if (!formData.name) errs.name = "Name is required"
     if (!formData.email.match(/^\S+@\S+\.\S+$/)) errs.email = "Invalid email"
     if (formData.password && formData.password !== confirmPw)
       errs.password = "Passwords do not match"
@@ -182,3 +181,34 @@ export default function UserProfile() {
     </div>
   )
 }
+
+/*.
+      current steps(short overview):
+    -> - Finishing the piano and preparing the app for an alpha launch
+         -- implementing backend:
+                users --> current step: refactoring userProfile 
+                The authentication system -> the only thing left is to make sure this component displays the user info for the user that is currently logged in correctly
+                piano_tracks -> the song notes now come from the database, refactor the code accordingly
+                user_score (for the piano scores)
+                
+                And that's it for now
+
+                --- connecting my app to the supabase database:
+                  --- First I need to start with the authenticaton system
+                  --- Then I'll connect the piano notes 
+                  --- lastly, I'll connect the user score system to the database
+
+
+         -- The next step is to add the tests to the CI workflow (continuous integration) routine 
+         -- The app must be ready for a small test by a handful of users at this point(also a great excuse to test deployment with react and Supabase). See how it goes =)
+         -- Trying to fix the responsiveness issues for the paino gets too complicated on the dev server, it's better to revisit this issue after it's been deployed and is actually accessible on smaller devices
+         -- I also think now (early post alpha release) is a great time to consider RSC and React 19 (stuff like server side components, ssr and form actions)
+         -- Must move on to JWTs if this app is ever to hit real production
+         -- If harmony hub succeeds in attracting users (or it becomes a safe bet for basing my software career), I'll look into the best way to gamify playing this piano. I'll come up with the best ways to incentivize users to play the piano, and have a blast as they're learning how music works
+        - move on to the music player and real time note highlighting (once this feature has been added, Development on this project should stop. I have to shift
+       my focus on to  Next.js, Typescript, An online shop that is the most sophisticated it can be in terms of looks and features. However its scale does have to
+       be compatible with the fact that it's a portfolio project at the end of the day. Once ATP is ready with all the portfolio projects, I'll 
+       come up with the best plan to divide my attention acroses these projects in such a way that  I can make some real dough, I keep evolving as a dev, and I'm doing
+       what I love (a balance through the mixture of these three))
+       - Joyful Speaking is next
+ */

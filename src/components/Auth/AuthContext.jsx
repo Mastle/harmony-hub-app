@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect, useContext } from "react"
+import { fetchUserProfile } from "../../utils/fetchUserProfile"
 
 const AuthContext = createContext()
 
@@ -11,10 +12,20 @@ export function AuthProvider({ children }) {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
 
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("user")
-    if (loggedInUser) {
-      setUser(JSON.parse(loggedInUser))
+    const initUser = async () => {
+      const stored = localStorage.getItem("user")
+      if (!stored) return
+
+      const { id, email } = JSON.parse(stored)
+      try {
+        const profile = await fetchUserProfile(id)
+        setUser({ id, email, ...profile })
+      } catch {
+        // If profile fetch failed, at least restore basic auth state
+        setUser({ id, email })
+      }
     }
+    initUser()
   }, [])
 
   const handleLogout = () => {

@@ -2,7 +2,8 @@
 
 import { useState } from "react"
 import { useAuth } from "./AuthContext"
-import { supabase } from "../../supaBaseClient.js" 
+import { supabase } from "../../supaBaseClient.js"
+import { fetchUserProfile } from "../../utils/fetchUserProfile"
 
 export default function Login() {
   const [email, setEmail] = useState("")
@@ -11,34 +12,29 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-    // Ensure email and password are correctly formatted
-    const emailLowerCase = email.toLowerCase()
-    const passwordLowerCase = password.toLowerCase()
+    const emailLower = email.toLowerCase()
+    // — Avoid lowercasing passwords (it weakens them)
+    const passwordToUse = password
 
     try {
-      // Attempt to log in with Supabase
       const { data, error } = await supabase.auth.signInWithPassword({
-        email: emailLowerCase,
-        password: passwordLowerCase,
+        email: emailLower,
+        password: passwordToUse,
       })
-
       if (error) throw error
 
-      // If login is successful, update user state and localStorage
-      const user = data.user
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ email: user.email, id: user.id })
-      ) // Store minimal data
-      setUser({ email: user.email, id: user.id }) // Update user context
-      setIsAuthModalOpen(false) // Close the modal
-    } catch (error) {
-      console.error("Login error:", error.message)
-      alert("Invalid credentials or login failed")
+      // data.user always includes id & email
+      const { id, email: userEmail } = data.user
+      const profile = await fetchUserProfile(id)
+
+      localStorage.setItem("user", JSON.stringify({ id, email: userEmail }))
+      setUser({ id, email: userEmail, ...profile })
+      setIsAuthModalOpen(false)
+    } catch (err) {
+      console.error("Login error:", err)
+      alert(err.message || "Login failed")
     }
   }
-
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
