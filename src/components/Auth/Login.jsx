@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useAuth } from "./AuthContext"
+import { supabase } from "../../supaBaseClient.js" 
 
 export default function Login() {
   const [email, setEmail] = useState("")
@@ -10,22 +11,31 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const response = await fetch("http://localhost:3001/users")
-    const users = await response.json()
 
+    // Ensure email and password are correctly formatted
     const emailLowerCase = email.toLowerCase()
     const passwordLowerCase = password.toLowerCase()
 
-    const user = users.find(
-      (u) => u.email === emailLowerCase && u.password === passwordLowerCase
-    )
+    try {
+      // Attempt to log in with Supabase
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: emailLowerCase,
+        password: passwordLowerCase,
+      })
 
-    if (user) {
-      localStorage.setItem("user", JSON.stringify(user))
-      setUser(user)
-      setIsAuthModalOpen(false)
-    } else {
-      alert("Invalid credentials")
+      if (error) throw error
+
+      // If login is successful, update user state and localStorage
+      const user = data.user
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ email: user.email, id: user.id })
+      ) // Store minimal data
+      setUser({ email: user.email, id: user.id }) // Update user context
+      setIsAuthModalOpen(false) // Close the modal
+    } catch (error) {
+      console.error("Login error:", error.message)
+      alert("Invalid credentials or login failed")
     }
   }
 

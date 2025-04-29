@@ -98,19 +98,3 @@ describe("Login component", () => {
   })
 })
 
-/*.
-     current step(short overview):
-    -> - Finishing the piano and preparing the app for an alpha launch
-         -- And the next one is: It's time for Supabase integration! -> SupaBase database and client have been set up successfuly, it's time to replace the mock backend!
-         -- The next step is to add the tests to the CI workflow (continuous integration) routine 
-         -- The app must be ready for a small test by a handful of users at this point(also a great excuse to test deployment with react and Supabase). See how it goes =)
-         -- Trying to fix the responsiveness issues for the paino gets too complicated on the dev server, it's better to revisit this issue after it's been deployed and is actually accessible on smaller devices
-         -- I also think now (early post alpha release) is a great time to consider RSC and React 19 (stuff like server side components, ssr and form actions)
-         -- If harmony hub succeeds in attracting users (or it becomes a safe bet for basing my software career), I'll look into the best way to gamify playing this piano. I'll come up with the best ways to incentivize users to play the piano, and have a blast as they're learning how music works
-        - move on to the music player and real time note highlighting (once this feature has been added, Development on this project should stop. I have to shift
-       my focus on to  Next.js, Typescript, An online shop that is the most sophisticated it can be in terms of looks and features. However its scale does have to
-       be compatible with the fact that it's a portfolio project at the end of the day. Once ATP is ready with all the portfolio projects, I'll 
-       come up with the best plan to divide my attention acroses these projects in such a way that  I can make some real dough, I keep evolving as a dev, and I'm doing
-       what I love (a balance through the mixture of these three))
-       - Joyful Speaking is next
- */

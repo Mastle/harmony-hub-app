@@ -49,21 +49,18 @@ export const songs = {
   happyBirthday: {
     name: "Happy Birthday",
     notes: [
-      // “Happy birthday to you”
       "G4",
       "G4",
       "A4",
       "G4",
       "C5",
       "B4",
-      // “Happy birthday to you”
       "G4",
       "G4",
       "A4",
       "G4",
       "D5",
       "C5",
-      // “Happy birthday dear [NAME]”
       "G4",
       "G4",
       "G5",
@@ -71,7 +68,6 @@ export const songs = {
       "C5",
       "B4",
       "A4",
-      // “Happy birthday to you”
       "F5",
       "F5",
       "E5",
@@ -83,7 +79,6 @@ export const songs = {
   jingle: {
     name: "Jingle Bells",
     notes: [
-      // “Jingle bells, jingle bells, jingle all the way”
       "E4",
       "E4",
       "E4",
@@ -95,7 +90,6 @@ export const songs = {
       "C4",
       "D4",
       "E4",
-      // “Oh! what fun it is to ride in a one-horse open sleigh”
       "F4",
       "F4",
       "F4",
@@ -103,7 +97,6 @@ export const songs = {
       "F4",
       "E4",
       "E4",
-      // “Jingle bells, jingle bells, jingle all the way”
       "E4",
       "E4",
       "E4",

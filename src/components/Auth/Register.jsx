@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useAuth } from "./AuthContext"
+import { supabase } from "../../supaBaseClient.js"
 
 export default function Register() {
   const [email, setEmail] = useState("")
@@ -12,21 +13,26 @@ export default function Register() {
     e.preventDefault()
     const emailToLowerCase = email.toLowerCase()
     const passwordToLowerCase = password.toLowerCase()
+
     try {
-      const response = await fetch("http://localhost:3001/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: emailToLowerCase,
-          password: passwordToLowerCase,
-        }),
+      const { data, error } = await supabase.auth.signUp({
+        email: emailToLowerCase,
+        password: passwordToLowerCase,
       })
-      const user = await response.json()
-      localStorage.setItem("user", JSON.stringify(user))
-      setUser(user)
+
+      if (error) throw error
+
+      const user = data.user
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ email: user.email, id: user.id })
+      )
+      setUser({ email: user.email, id: user.id })
       setIsAuthModalOpen(false)
-    } catch {
-      alert("Failed to register")
+    } catch (error) {
+      console.error("Supabase registration error:", error.message)
+      alert("Failed to register: " + error.message)
     }
   }
 
