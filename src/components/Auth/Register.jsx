@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useAuth } from "./AuthContext"
-import { supabase } from "../../supaBaseClient.js"
+import { supabase } from "../../supabaseClient.js"
 import { fetchUserProfile } from "../../utils/fetchUserProfile"
 
 export default function Register() {

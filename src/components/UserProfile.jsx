@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Mail, Lock, Check } from "lucide-react"
 import { useAuth } from "./Auth/AuthContext"
+import { supabase } from "../supabaseClient"
 
 export default function UserProfile() {
   const { user, setUser } = useAuth()
@@ -20,7 +21,7 @@ export default function UserProfile() {
     if (user) {
       setFormData({
         name: user.name || "",
-        email: user.email || "",
+        email: user.email,
         password: "", // leave blank for new password
       })
     }
@@ -48,26 +49,42 @@ export default function UserProfile() {
 
     if (!validate()) return
     setLoading(true)
-
-    const payload = { name: formData.name, email: formData.email }
-    if (formData.password) payload.password = formData.password
-
-    setUser((prev) => ({
-      ...prev,
-      password: payload.password,
-      name: payload.name,
-      email: payload.email,
-    }))
+    setErrors({})
 
     try {
-      await fetch(`http://localhost:3001/users/${user.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-      // Optionally update context or show success message
+      // 1. Update user auth info (email/password)
+      const updates = {}
+      if (formData.email && formData.email !== user.email) {
+        updates.email = formData.email
+      }
+      if (formData.password) {
+        updates.password = formData.password
+      }
+      if (Object.keys(updates).length > 0) {
+        const { error: authError } = await supabase.auth.updateUser(updates)
+        if (authError) throw authError
+      }
+
+      // 2. Update user metadata in 'users' table
+      const { error: dbError } = await supabase
+        .from("profiles")
+        .update({ name: formData.name })
+        .eq("id", user.id)
+
+      if (dbError) throw dbError
+
+      // 3. Update local user context
+      setUser((prev) => ({
+        ...prev,
+        email: formData.email,
+        name: formData.name,
+      }))
+
+      // Optionally show success message
+      console.log("Profile updated successfully!")
     } catch (err) {
-      console.error("Update failed", err)
+      console.error("Update failed", err.message)
+      setErrors({ form: err.message })
     } finally {
       setLoading(false)
     }
@@ -182,30 +199,24 @@ export default function UserProfile() {
   )
 }
 
+//ISSUE: updating email trips the supabase email rate limit, is it fixed today?
+
 /*.
       current steps(short overview):
     -> - Finishing the piano and preparing the app for an alpha launch
          -- implementing backend:
-                users --> current step: refactoring userProfile 
-                The authentication system -> the only thing left is to make sure this component displays the user info for the user that is currently logged in correctly
-                piano_tracks -> the song notes now come from the database, refactor the code accordingly
-                user_score (for the piano scores)
+                piano -> the song notes now come from the database, refactor the code accordingly. Must also add user score
+                user score (for the piano scores)
                 
-                And that's it for now
-
-                --- connecting my app to the supabase database:
-                  --- First I need to start with the authenticaton system
-                  --- Then I'll connect the piano notes 
-                  --- lastly, I'll connect the user score system to the database
-
 
          -- The next step is to add the tests to the CI workflow (continuous integration) routine 
-         -- The app must be ready for a small test by a handful of users at this point(also a great excuse to test deployment with react and Supabase). See how it goes =)
+         -- It's deployment time baby!
          -- Trying to fix the responsiveness issues for the paino gets too complicated on the dev server, it's better to revisit this issue after it's been deployed and is actually accessible on smaller devices
          -- I also think now (early post alpha release) is a great time to consider RSC and React 19 (stuff like server side components, ssr and form actions)
          -- Must move on to JWTs if this app is ever to hit real production
          -- If harmony hub succeeds in attracting users (or it becomes a safe bet for basing my software career), I'll look into the best way to gamify playing this piano. I'll come up with the best ways to incentivize users to play the piano, and have a blast as they're learning how music works
-        - move on to the music player and real time note highlighting (once this feature has been added, Development on this project should stop. I have to shift
+         -- I have to add Docker to this thing once I've taken care of the previous steps. It's a necessity, it's great tech!
+         - move on to the music player and real time note highlighting (once this feature has been added, Development on this project should stop. I have to shift
        my focus on to  Next.js, Typescript, An online shop that is the most sophisticated it can be in terms of looks and features. However its scale does have to
        be compatible with the fact that it's a portfolio project at the end of the day. Once ATP is ready with all the portfolio projects, I'll 
        come up with the best plan to divide my attention acroses these projects in such a way that  I can make some real dough, I keep evolving as a dev, and I'm doing

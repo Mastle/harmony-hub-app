@@ -1,10 +1,10 @@
 // utils/fetchUserProfile.js (create this helper file)
-import { supabase } from "../supaBaseClient"
+import { supabase } from "../supabaseClient"
 
 export const fetchUserProfile = async (userId) => {
   const { data, error } = await supabase
     .from("profiles")
-    .select("username, score, email")
+    .select("name, score, email")
     .eq("id", userId)
     .single()
 
@@ -13,5 +13,5 @@ export const fetchUserProfile = async (userId) => {
     throw new Error(`Profile fetch error: ${error.message}`)
   }
 
-  return { id: userId, name: data.username, score: data.score }
+  return { id: userId, name: data.name, score: data.score }
 }

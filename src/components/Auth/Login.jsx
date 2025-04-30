@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useAuth } from "./AuthContext"
-import { supabase } from "../../supaBaseClient.js"
+import { supabase } from "../../supabaseClient.js"
 import { fetchUserProfile } from "../../utils/fetchUserProfile"
 
 export default function Login() {
@@ -84,3 +84,6 @@ export default function Login() {
     </form>
   )
 }
+
+//TODO: - this auth system could use a loading mechanism when fetching is happening, that takes a while and the user just has to stare at the UI, that's awkward and not ok!
+//TODO: must also utilize JWT on production - which means I'd have to make this system even more sophisticated for that to work properly
