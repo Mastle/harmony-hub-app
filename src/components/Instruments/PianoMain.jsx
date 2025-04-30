@@ -365,7 +365,7 @@ export default function PianoMain() {
       current steps(short overview):
     -> - Finishing the piano and preparing the app for an alpha launch
          -- implementing backend:
-               --- There are minor issues such as start game not working as long the user hasn't interacted with the drop down menu, it almost seems finished overall!
+               --- https://chatgpt.com/c/6811fc30-b9c8-8010-bb48-73d0572c66b3
                 
 
          -- (make sure userprofile issue is solved beforehand) The next step is to add the tests to the CI workflow (continuous integration) routine 
