@@ -201,25 +201,3 @@ export default function UserProfile() {
 
 //ISSUE: updating email trips the supabase email rate limit, is it fixed today?
 
-/*.
-      current steps(short overview):
-    -> - Finishing the piano and preparing the app for an alpha launch
-         -- implementing backend:
-                piano -> the song notes now come from the database, refactor the code accordingly. Must also add user score
-                user score (for the piano scores)
-                
-
-         -- The next step is to add the tests to the CI workflow (continuous integration) routine 
-         -- It's deployment time baby!
-         -- Trying to fix the responsiveness issues for the paino gets too complicated on the dev server, it's better to revisit this issue after it's been deployed and is actually accessible on smaller devices
-         -- I also think now (early post alpha release) is a great time to consider RSC and React 19 (stuff like server side components, ssr and form actions)
-         -- Must move on to JWTs if this app is ever to hit real production
-         -- If harmony hub succeeds in attracting users (or it becomes a safe bet for basing my software career), I'll look into the best way to gamify playing this piano. I'll come up with the best ways to incentivize users to play the piano, and have a blast as they're learning how music works
-         -- I have to add Docker to this thing once I've taken care of the previous steps. It's a necessity, it's great tech!
-         - move on to the music player and real time note highlighting (once this feature has been added, Development on this project should stop. I have to shift
-       my focus on to  Next.js, Typescript, An online shop that is the most sophisticated it can be in terms of looks and features. However its scale does have to
-       be compatible with the fact that it's a portfolio project at the end of the day. Once ATP is ready with all the portfolio projects, I'll 
-       come up with the best plan to divide my attention acroses these projects in such a way that  I can make some real dough, I keep evolving as a dev, and I'm doing
-       what I love (a balance through the mixture of these three))
-       - Joyful Speaking is next
- */
