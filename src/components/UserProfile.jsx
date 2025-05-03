@@ -198,7 +198,7 @@ export default function UserProfile() {
   )
 }
 
-//TODO(ISSUE): (current step) updating email trips the supabase email rate limit, is it fixed today?
+//TODO(ISSUE):  updating email trips the supabase email rate limit ->
 
 /*solution: this thing needs a custom SMTP, it's the only solution. Right now, I ain't got time for it! so the email editing feature will be added
 once I've taken care of the other parts and I've added a SMTP

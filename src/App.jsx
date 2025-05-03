@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import MainLayout from "./components/MainLayout"
 import HomePage from "./components/HomePage"
 import Instruments from "./components/Instruments/Instruments"
+import PianoMainUpdated from "./components/Instruments/Piano/PianoMainUpdated"
 import PianoMain from "./components/Instruments/PianoMain"
 import MusicPlayer from "./components/Music/MusicPlayer"
 import UserProfile from "./components/UserProfile"
@@ -21,7 +22,8 @@ const App = () => {
             <Route path="account" element={<UserProfile />} />
           </Route>
           <Route path="instruments" element={<Instruments />} />
-          <Route path="instruments/piano" element={<PianoMain />} />
+          <Route path="instruments/piano" element={<PianoMainUpdated />} />
+          <Route path="instruments/otherpiano" element={<PianoMain />} />
           <Route path="player" element={<MusicPlayer />} />
         </Route>
       </Routes>
