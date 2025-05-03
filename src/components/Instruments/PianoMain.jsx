@@ -360,12 +360,15 @@ export default function PianoMain() {
 //  TODO: The piano output doesn't sustain that well right now, utilinzg tone.reverb and tone.eq seems to add artifacts to the audio. What to do?
 //  TODO: The song game just ends abruptly and the UI resets. That's not the cleanest way to end the game. Must reconsider this part for the next phase of the app
 //  TODO: The song notes stay the same when they're not hidden even if the song is changed from the drop down menu
+//  TODO: Right now, I've disabled the default tab button for the entire page, I need to find a way to allow users to have default tab behavior as well as the tab shortcut on the piano
 
 /*.
       current steps(short overview):
     -> - Finishing the piano and preparing the app for an alpha launch
          -- implementing backend:
-               --- https://chatgpt.com/c/6811fc30-b9c8-8010-bb48-73d0572c66b3
+               --- current step(refactoring PianoMain): https://chatgpt.com/c/6811fc30-b9c8-8010-bb48-73d0572c66b3  
+               -> how messy this component is a major problem. And it can only get worse from here, 
+               so refactoring this whole thing is the smartest choice right now
                 
 
          -- (make sure userprofile issue is solved beforehand) The next step is to add the tests to the CI workflow (continuous integration) routine 
@@ -375,6 +378,7 @@ export default function PianoMain() {
          -- Must move on to JWTs if this app is ever to hit real production
          -- If harmony hub succeeds in attracting users (or it becomes a safe bet for basing my software career), I'll look into the best way to gamify playing this piano. I'll come up with the best ways to incentivize users to play the piano, and have a blast as they're learning how music works
          -- I have to add Docker to this thing once I've taken care of the previous steps. It's a necessity, it's great tech!
+         -- When using Supabase for an app, when has to also consider a custom SMTP. They simply go hand in hand. I'll add this one after the others
          - move on to the music player and real time note highlighting (once this feature has been added, Development on this project should stop. I have to shift
        my focus on to  Next.js, Typescript, An online shop that is the most sophisticated it can be in terms of looks and features. However its scale does have to
        be compatible with the fact that it's a portfolio project at the end of the day. Once ATP is ready with all the portfolio projects, I'll 
