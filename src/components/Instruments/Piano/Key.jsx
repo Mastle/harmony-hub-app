@@ -23,6 +23,7 @@ export default function Key({
       onTouchStart={() => onPlay(note)}
       onTouchEnd={() => onStop(note)}
       onTouchCancel={() => onStop(note)}
+      data-testid="piano-key"
     >
       {showLabels ? `${note} (${keyChar})` : ""}
     </button>

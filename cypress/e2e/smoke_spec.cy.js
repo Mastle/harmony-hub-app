@@ -8,8 +8,8 @@ describe("Harmony Hub MVP - Smoke Test", () => {
     cy.contains("Login").click()
 
     // Fill in login form
-    cy.get('input[id="email"]').type("amir@gmail.com") // adjust email
-    cy.get('input[id="password"]').type("1022") // adjust password
+    cy.get('input[id="email"]').type("amir_dohezar@gmail.com") // adjust email
+    cy.get('input[id="password"]').type("102030") // adjust password
     cy.get('button[type="submit"]').click()
 
     // Confirm login by checking for "Logout" button

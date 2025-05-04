@@ -41,7 +41,7 @@ export default function PianoMain() {
       >
         {!audioReady && (
           <button onClick={initializeAudio} className="btn p-6">
-            Start Piano
+            Click to start the piano
           </button>
         )}
         {audioReady && (
@@ -111,4 +111,3 @@ export default function PianoMain() {
     </>
   )
 }
-
