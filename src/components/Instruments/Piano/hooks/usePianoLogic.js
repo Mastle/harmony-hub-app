@@ -1,4 +1,3 @@
-// src/components/Instruments/Piano/hooks/usePianoLogic.js
 import { useState, useEffect, useRef, useCallback } from "react"
 import * as Tone from "tone"
 import { keysData, keyToNoteMap } from "../../../data/pianoKeys"
@@ -17,6 +16,7 @@ export default function usePianoLogic() {
   const [selectedId, setSelectedId] = useState("twinkle")
   const [showNotes, setShowNotes] = useState(false)
   const [score, setScore] = useState(0)
+  const [isPianoFocused, setIsPianoFocused] = useState(false)
 
   const songRef = useRef([])
   const sampler = useRef(null)
@@ -31,6 +31,22 @@ export default function usePianoLogic() {
       setScore(user.score)
     }
   }, [user])
+
+  const updateScoreInDb = useCallback(
+    async (newScore) => {
+      if (!user?.id) return
+
+      const { error } = await supabase
+        .from("profiles")
+        .update({ score: newScore })
+        .eq("id", user.id)
+
+      if (error) {
+        console.error("Error updating score in Supabase:", error)
+      }
+    },
+    [user]
+  )
 
   useEffect(() => {
     async function loadSongs() {
@@ -62,6 +78,13 @@ export default function usePianoLogic() {
     return () => sampler.current.dispose()
   }, [])
 
+  useEffect(() => {
+    if (isGameActive && songRef.current.length > 0) {
+      setTarget(songRef.current[0])
+      setStep(0)
+    } else setTarget(null)
+  }, [isGameActive])
+
   const play = useCallback(
     (note) => {
       setActiveNotes((prev) => new Set(prev).add(note))
@@ -73,7 +96,10 @@ export default function usePianoLogic() {
           setTarget(songRef.current[next])
         } else {
           setTimeout(() => {
-            setScore((s) => s + 100)
+            const newScore = score + 100
+            setScore(newScore)
+            setUser((prev) => ({ ...prev, score: newScore }))
+            updateScoreInDb(newScore)
             setIsGameActive(false)
             setStep(0)
             setTarget(null)
@@ -138,7 +164,6 @@ export default function usePianoLogic() {
     setIsGameActive,
     step,
     target,
-    setTarget,
     showNotes,
     setShowNotes,
     play,
@@ -147,6 +172,7 @@ export default function usePianoLogic() {
     keysData,
     keyToNoteMap,
     Tone,
-    songRef,
+    setIsPianoFocused,
+    isPianoFocused,
   }
 }

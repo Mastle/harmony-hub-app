@@ -6,8 +6,7 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import MainLayout from "./components/MainLayout"
 import HomePage from "./components/HomePage"
 import Instruments from "./components/Instruments/Instruments"
-import PianoMainUpdated from "./components/Instruments/Piano/PianoMainUpdated"
-import PianoMain from "./components/Instruments/PianoMain"
+import PianoMain from "./components/Instruments/Piano/PianoMain"
 import MusicPlayer from "./components/Music/MusicPlayer"
 import UserProfile from "./components/UserProfile"
 import AuthModal from "./components/Auth/AuthModal"
@@ -22,8 +21,7 @@ const App = () => {
             <Route path="account" element={<UserProfile />} />
           </Route>
           <Route path="instruments" element={<Instruments />} />
-          <Route path="instruments/piano" element={<PianoMainUpdated />} />
-          <Route path="instruments/otherpiano" element={<PianoMain />} />
+          <Route path="instruments/piano" element={<PianoMain />} />
           <Route path="player" element={<MusicPlayer />} />
         </Route>
       </Routes>
@@ -62,7 +60,26 @@ export default App
  - Before we finish: add things to the project that utilize RSC and React 19 features! (to get a good practice and improve portfolio)
  - New rule: before wrapping things up, I must address the "TODO" comments of each section of the project. This is a technique that allows me to build rapidly and add the essential 
  improvements later on!
-  
+  -- Before I consider myself good at React, I must be able to know every one of these topics:
+   01-Introduction-and-getting-started  
+   02-react-related-javascript-refresher  
+   03-react-fundamentals.md  
+   04-forms-and-input-notes-app  
+   05-lifecycle-and-useeffect-hook  
+   06-useRef-hook-simple-timer-app  
+   07-working-with-apis-crypto-dash  
+   08-intro-to-routing-react-router-declarative-mode  
+   09-build-and-deploy  
+   10-context-api-shopping-cart-project  
+   11-react-router-framework-mode-friendly-dev  
+   12-fetching-data-with-loaders  
+   13-pagination-filtering-and-more  
+   14-react-router-actions  
+   15-strapi-headless-cms-for-data  
+   16-cloudinary-contact-form-and-deployment  
+   17-tanstack-query-github-finder-project  
+   18-tanstack-router-idea-drop-project  
+   19-learn-the-mern-stack.md  
  */
 
 /* An amazing digital music academy for learners, the best assistant and one-stop-shop for all the professionals' needs */

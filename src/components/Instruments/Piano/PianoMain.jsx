@@ -2,10 +2,8 @@
 import Piano from "./Piano"
 import usePianoLogic from "./hooks/usePianoLogic"
 import "../../../styles/pianoStyles.css"
-// import { useAuth } from "../../Auth/AuthContext"
 
 export default function PianoMain() {
-  // const { user, setUser } = useAuth()
 
   const {
     audioReady,
@@ -23,22 +21,15 @@ export default function PianoMain() {
     showNotes,
     setShowNotes,
     target,
-    setTarget,
     keysData,
     Tone,
     score,
-    songRef,
   } = usePianoLogic()
 
   const initializeAudio = () => {
     Tone.start()
     setAudioReady(true)
     localStorage.setItem("audioReady", "true")
-  }
-  //current step: I created this to make sure target state not updating when a song game is the problem, and I was right. But I need to really think this through before settling on the final structure. The piano must have the best design possible, this is the heart and soul of my app.
-  const beginSongGame = () => {
-    setIsGameActive((prev) => !prev)
-    setTarget(songRef.current[0])
   }
 
   return (
@@ -98,7 +89,9 @@ export default function PianoMain() {
           </select>
 
           <button
-            onClick={beginSongGame}
+            onClick={() => {
+              setIsGameActive((prev) => !prev)
+            }}
             className={isGameActive ? "btn btn-warning" : "btn btn-success"}
           >
             {isGameActive ? "Stop Song Game" : "Start Song Game"}
@@ -117,15 +110,10 @@ export default function PianoMain() {
 }
 
 /* current step:
-     
-     -- Refactoring this piano became the most frustrating thing in all of this project. I'll understand better than anything else in this app, I'll make it work exactly the way I want. And then I'll move on
-     -- I can't understand how the song game actually works, I need to start from the beginning. once I know how it works ,I can understand why it won't begin unless the first note
-     of a song is pressed
-     -- I'm having a hard time understanding the right order of operations for -> updating the user score state on game completion
-      -> updating the user.score object in context 
-      -> and finally updating the user.score in the database
+    
+      -- fixing the "Tab" key problem. I wanna be able to use it for the piano, but I should also allow the user to use as they normally would when piano is not the focus
       -- Must reorganize UI button placement for game controls and scores, I can at least make them more consistent
-
+      
 
 */
 
