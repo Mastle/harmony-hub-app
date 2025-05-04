@@ -69,15 +69,9 @@ export default function PianoMain() {
             ))}
           </div>
         )}
-        <button
-          onClick={() => setShowNotes((prev) => !prev)}
-          className="btn btn-info mt-2"
-        >
-          {showNotes ? "Hide Notes" : "Show Notes"}
-        </button>
 
         {/* Song Selection and Game Controls */}
-        <div className="flex justify-center items-center gap-4 mt-4">
+        <div className="flex flex-wrap justify-center items-center gap-4 mt-4 max-w-max mx-auto">
           <select
             value={selectedId}
             onChange={(e) => setSelectedId(e.target.value)}
@@ -106,28 +100,23 @@ export default function PianoMain() {
           >
             {showLabels ? "Hide Key Labels" : "Show Key Labels"}
           </button>
+          <button
+            onClick={() => setShowNotes((prev) => !prev)}
+            className="btn btn-info mt-2"
+          >
+            {showNotes ? "Hide Notes" : "Show Notes"}
+          </button>
         </div>
       </div>
     </>
   )
 }
 
-/* current step:
-    
--- Then, I must reorganize UI button placement for game controls and scores, I can at least make them more consistent
-      
-
-*/
-
 /*.
       current steps(short overview):
     -> - Finishing the piano and preparing the app for an alpha launch
-         -- implementing backend:
-        -- refactoring the piano code -> start by fully understanding how the new code works, identify the problems, then start tackling each one
-         in the end, compare the two pianos. Play a few notes on the previous one, make sure the new one works as intended and it sounds as good
-                
 
-         -- (make sure userprofile issue is solved beforehand) The next step is to add the tests to the CI workflow (continuous integration) routine 
+         -- The next step is to add the tests to the CI workflow (continuous integration) routine 
          -- It's deployment time baby! make sure your tests won't get added to the bundle
          -- Trying to fix the responsiveness issues for the paino gets too complicated on the dev server, it's better to revisit this issue after it's been deployed and is actually accessible on smaller devices
          -- I also think now (early post alpha release) is a great time to consider RSC and React 19 (stuff like server side components, ssr and form actions)
