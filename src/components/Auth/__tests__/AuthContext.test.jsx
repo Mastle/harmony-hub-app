@@ -1,6 +1,13 @@
-import { act, render, screen } from "@testing-library/react"
-import { beforeEach } from "vitest"
+import { act, render, screen, waitFor } from "@testing-library/react"
+import { beforeEach, vi } from "vitest"
 import { AuthProvider, useAuth } from "../AuthContext"
+
+// Mock the fetchUserProfile function to simulate the user being fetched from an API
+vi.mock("../../../utils/fetchUserProfile", () => ({
+  fetchUserProfile: vi.fn().mockResolvedValue({
+    name: "Amirali", // <-- Only return profile-specific fields
+  }),
+}))
 
 function TestComponent() {
   const { user, isAuthModalOpen, setIsAuthModalOpen, handleLogout } = useAuth()
@@ -28,14 +35,21 @@ describe("AuthContext", () => {
     expect(screen.getByTestId("user").textContent).toBe("No user")
   })
 
-  it("initializes with user from localStorage if available", () => {
-    localStorage.setItem("user", JSON.stringify({ name: "Amirali" }))
+  it("initializes with user from localStorage if available", async () => {
+    localStorage.setItem(
+      "user",
+      JSON.stringify({ id: 42, email: "test@example.com" })
+    )
+
     render(
       <AuthProvider>
         <TestComponent />
       </AuthProvider>
     )
-    expect(screen.getByTestId("user").textContent).toBe("Amirali")
+
+    await waitFor(() => {
+      expect(screen.getByTestId("user").textContent).toBe("Amirali")
+    })
   })
 
   it("can toggle the auth modal open", () => {
@@ -63,4 +77,3 @@ describe("AuthContext", () => {
     expect(localStorage.getItem("user")).toBe(null)
   })
 })
-

@@ -16,12 +16,20 @@ export function AuthProvider({ children }) {
       const stored = localStorage.getItem("user")
       if (!stored) return
 
-      const { id, email } = JSON.parse(stored)
       try {
+        const { id, email } = JSON.parse(stored)
         const profile = await fetchUserProfile(id)
-        setUser({ id, email, ...profile })
-      } catch {
-        // If profile fetch failed, at least restore basic auth state
+
+        setUser((prev) => ({
+          ...prev,
+          id,
+          email,
+          ...(profile || {}), // Safely spread profile data
+        }))
+      } catch (error) {
+        console.error("Failed to fetch user:", error)
+        // Fallback to just localStorage data
+        const { id, email } = JSON.parse(stored)
         setUser({ id, email })
       }
     }
