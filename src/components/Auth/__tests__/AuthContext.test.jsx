@@ -5,7 +5,7 @@ import { AuthProvider, useAuth } from "../AuthContext"
 // Mock the fetchUserProfile function to simulate the user being fetched from an API
 vi.mock("../../../utils/fetchUserProfile", () => ({
   fetchUserProfile: vi.fn().mockResolvedValue({
-    name: "Amirali", // <-- Only return profile-specific fields
+    name: "Amirali",
   }),
 }))
 

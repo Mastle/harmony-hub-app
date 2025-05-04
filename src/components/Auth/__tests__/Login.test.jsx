@@ -2,8 +2,25 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react"
 import { vi } from "vitest"
 import Login from "../LogIn.jsx"
 import { useAuth } from "../AuthContext"
+import { supabase } from "../../../supabaseClient.js"
+import { fetchUserProfile } from "../../../utils/fetchUserProfile.js"
 
+// Mock AuthContext hook
 vi.mock("../AuthContext")
+
+// Mock Supabase client
+vi.mock("../../../supabaseClient.js", () => ({
+  supabase: {
+    auth: {
+      signInWithPassword: vi.fn(),
+    },
+  },
+}))
+
+// Mock fetchUserProfile util
+vi.mock("../../../utils/fetchUserProfile.js", () => ({
+  fetchUserProfile: vi.fn(),
+}))
 
 describe("Login component", () => {
   const mockSetUser = vi.fn()
@@ -11,11 +28,12 @@ describe("Login component", () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
+    localStorage.clear()
+    // Mock AuthContext values
     useAuth.mockReturnValue({
       setUser: mockSetUser,
       setIsAuthModalOpen: mockSetIsAuthModalOpen,
     })
-
     // Mock alert
     vi.spyOn(window, "alert").mockImplementation(() => {})
   })
@@ -27,30 +45,16 @@ describe("Login component", () => {
     expect(screen.getByRole("button", { name: /login/i })).toBeInTheDocument()
   })
 
-  it("updates state when typing into inputs", () => {
-    render(<Login />)
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-
-    fireEvent.change(emailInput, { target: { value: "test@example.com" } })
-    fireEvent.change(passwordInput, { target: { value: "password123" } })
-
-    expect(emailInput.value).toBe("test@example.com")
-    expect(passwordInput.value).toBe("password123")
-  })
-
   it("logs in a user with correct credentials", async () => {
-    const mockUser = {
-      id: 1,
-      email: "test@example.com",
-      password: "password123",
-    }
-
-    global.fetch = vi.fn(() =>
-      Promise.resolve({
-        json: () => Promise.resolve([mockUser]),
-      })
-    )
+    // Arrange mock responses
+    const userData = { id: 1, email: "test@example.com" }
+    // Set up Supabase mock
+    supabase.auth.signInWithPassword.mockResolvedValue({
+      data: { user: userData },
+      error: null,
+    })
+    // Set up profile fetch mock
+    fetchUserProfile.mockResolvedValue({ name: "Amirali" })
 
     render(<Login />)
 
@@ -63,22 +67,33 @@ describe("Login component", () => {
     fireEvent.click(screen.getByRole("button", { name: /login/i }))
 
     await waitFor(() => {
-      expect(mockSetUser).toHaveBeenCalledWith(mockUser)
+      // Assert Supabase sign-in
+      expect(supabase.auth.signInWithPassword).toHaveBeenCalledWith({
+        email: "test@example.com",
+        password: "password123",
+      })
+      // Assert profile fetch
+      expect(fetchUserProfile).toHaveBeenCalledWith(1)
+      // Assert localStorage
+      expect(localStorage.getItem("user")).toBe(
+        JSON.stringify({ id: 1, email: "test@example.com" })
+      )
+      // Assert context updates
+      expect(mockSetUser).toHaveBeenCalledWith({
+        id: 1,
+        email: "test@example.com",
+        name: "Amirali",
+      })
       expect(mockSetIsAuthModalOpen).toHaveBeenCalledWith(false)
-      expect(localStorage.getItem("user")).toContain("test@example.com")
     })
   })
 
   it("shows alert on invalid credentials", async () => {
-    const mockUsers = [
-      { id: 1, email: "test@example.com", password: "password123" },
-    ]
-
-    global.fetch = vi.fn(() =>
-      Promise.resolve({
-        json: () => Promise.resolve(mockUsers),
-      })
-    )
+    // Arrange mock failure for Supabase
+    supabase.auth.signInWithPassword.mockResolvedValue({
+      data: null,
+      error: { message: "Invalid credentials" },
+    })
 
     render(<Login />)
 
@@ -91,10 +106,10 @@ describe("Login component", () => {
     fireEvent.click(screen.getByRole("button", { name: /login/i }))
 
     await waitFor(() => {
+      expect(supabase.auth.signInWithPassword).toHaveBeenCalled()
       expect(mockSetUser).not.toHaveBeenCalled()
       expect(mockSetIsAuthModalOpen).not.toHaveBeenCalled()
       expect(window.alert).toHaveBeenCalledWith("Invalid credentials")
     })
   })
 })
-
