@@ -1,10 +1,8 @@
-// src/components/Instruments/Piano/PianoMain.jsx
 import Piano from "./Piano"
 import usePianoLogic from "./hooks/usePianoLogic"
 import "../../../styles/pianoStyles.css"
 
 export default function PianoMain() {
-
   const {
     audioReady,
     setAudioReady,
@@ -24,6 +22,7 @@ export default function PianoMain() {
     keysData,
     Tone,
     score,
+    setIsPianoFocused,
   } = usePianoLogic()
 
   const initializeAudio = () => {
@@ -34,8 +33,12 @@ export default function PianoMain() {
 
   return (
     <>
-      <h1 className="text-4xl m-4 text-center font-bold pt-10">New Piano</h1>
-      <div className="piano-container">
+      <div
+        className="piano-container"
+        tabIndex={0}
+        onFocus={() => setIsPianoFocused(true)}
+        onBlur={() => setIsPianoFocused(false)}
+      >
         {!audioReady && (
           <button onClick={initializeAudio} className="btn p-6">
             Start Piano
@@ -111,8 +114,7 @@ export default function PianoMain() {
 
 /* current step:
     
-      -- fixing the "Tab" key problem. I wanna be able to use it for the piano, but I should also allow the user to use as they normally would when piano is not the focus
-      -- Must reorganize UI button placement for game controls and scores, I can at least make them more consistent
+-- Then, I must reorganize UI button placement for game controls and scores, I can at least make them more consistent
       
 
 */

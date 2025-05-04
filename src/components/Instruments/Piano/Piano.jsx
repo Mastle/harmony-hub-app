@@ -1,4 +1,3 @@
-// src/components/Instruments/Piano/Piano.jsx
 import Key from "./Key"
 
 export default function Piano({

@@ -121,13 +121,19 @@ export default function usePianoLogic() {
 
   const keyDown = useCallback(
     (e) => {
+      if (!isPianoFocused) return // only handle piano keys if focused
       const k = e.key.toLowerCase()
+
+      if (k === "tab") {
+        e.preventDefault()
+      }
+
       if (keyToNoteMap[k] && !held.current.has(k)) {
         play(keyToNoteMap[k])
         held.current.add(k)
       }
     },
-    [play]
+    [play, isPianoFocused]
   )
 
   const keyUp = useCallback(
@@ -173,6 +179,5 @@ export default function usePianoLogic() {
     keyToNoteMap,
     Tone,
     setIsPianoFocused,
-    isPianoFocused,
   }
 }
