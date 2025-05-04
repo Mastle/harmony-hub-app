@@ -1,9 +1,24 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react"
 import { vi } from "vitest"
-import Register from "../Register"
+import Register from "../Register.jsx"
 import { useAuth } from "../AuthContext"
+import { supabase } from "../../../supabaseClient.js"
+import { fetchUserProfile } from "../../../utils/fetchUserProfile.js"
 
+// Mock AuthContext hook
 vi.mock("../AuthContext")
+// Mock Supabase client
+vi.mock("../../../supabaseClient.js", () => ({
+  supabase: {
+    auth: {
+      signUp: vi.fn(),
+    },
+  },
+}))
+// Mock fetchUserProfile util
+vi.mock("../../../utils/fetchUserProfile.js", () => ({
+  fetchUserProfile: vi.fn(),
+}))
 
 describe("Register component", () => {
   const mockSetUser = vi.fn()
@@ -11,16 +26,15 @@ describe("Register component", () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
+    localStorage.clear()
     useAuth.mockReturnValue({
       setUser: mockSetUser,
       setIsAuthModalOpen: mockSetIsAuthModalOpen,
     })
-
-    // Mock alert
     vi.spyOn(window, "alert").mockImplementation(() => {})
   })
 
-  it("renders email and password inputs and a submit button", () => {
+  it("renders email and password inputs and a register button", () => {
     render(<Register />)
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument()
@@ -42,22 +56,19 @@ describe("Register component", () => {
   })
 
   it("registers a user successfully", async () => {
-    const mockUser = {
-      id: 1,
-      email: "test@example.com",
-      password: "password123",
-    }
-
-    global.fetch = vi.fn(() =>
-      Promise.resolve({
-        json: () => Promise.resolve(mockUser),
-      })
-    )
+    const userData = { id: 5, email: "new@example.com" }
+    // Arrange Supabase signUp mock
+    supabase.auth.signUp.mockResolvedValue({
+      data: { user: userData },
+      error: null,
+    })
+    // Arrange profile fetch mock
+    fetchUserProfile.mockResolvedValue({ name: "NewUser" })
 
     render(<Register />)
 
     fireEvent.change(screen.getByLabelText(/email/i), {
-      target: { value: "test@example.com" },
+      target: { value: "new@example.com" },
     })
     fireEvent.change(screen.getByLabelText(/password/i), {
       target: { value: "password123" },
@@ -65,27 +76,44 @@ describe("Register component", () => {
     fireEvent.click(screen.getByRole("button", { name: /register/i }))
 
     await waitFor(() => {
-      expect(mockSetUser).toHaveBeenCalledWith(mockUser)
+      expect(supabase.auth.signUp).toHaveBeenCalledWith({
+        email: "new@example.com",
+        password: "password123",
+      })
+      expect(fetchUserProfile).toHaveBeenCalledWith(5)
+      expect(localStorage.getItem("user")).toBe(
+        JSON.stringify({ id: 5, email: "new@example.com" })
+      )
+      expect(mockSetUser).toHaveBeenCalledWith({
+        id: 5,
+        email: "new@example.com",
+        name: "NewUser",
+      })
       expect(mockSetIsAuthModalOpen).toHaveBeenCalledWith(false)
-      expect(localStorage.getItem("user")).toContain("test@example.com")
     })
   })
 
-  it("shows an alert if registration fails", async () => {
-    global.fetch = vi.fn(() => Promise.reject(new Error("Failed to register")))
+  it("shows alert on registration failure", async () => {
+    supabase.auth.signUp.mockResolvedValue({
+      data: null,
+      error: { message: "Registration failed" },
+    })
 
     render(<Register />)
 
     fireEvent.change(screen.getByLabelText(/email/i), {
-      target: { value: "test@example.com" },
+      target: { value: "fail@example.com" },
     })
     fireEvent.change(screen.getByLabelText(/password/i), {
-      target: { value: "password123" },
+      target: { value: "badpass" },
     })
     fireEvent.click(screen.getByRole("button", { name: /register/i }))
 
     await waitFor(() => {
-      expect(window.alert).toHaveBeenCalledWith("Failed to register")
+      expect(supabase.auth.signUp).toHaveBeenCalled()
+      expect(mockSetUser).not.toHaveBeenCalled()
+      expect(mockSetIsAuthModalOpen).not.toHaveBeenCalled()
+      expect(window.alert).toHaveBeenCalledWith("Registration failed")
     })
   })
 })
