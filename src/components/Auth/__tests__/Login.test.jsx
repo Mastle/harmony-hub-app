@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react"
 import { vi } from "vitest"
-import Login from "../LogIn.jsx"
+import Login from "../Login.jsx"
 import { useAuth } from "../AuthContext"
 import { supabase } from "../../../supabaseClient.js"
 import { fetchUserProfile } from "../../../utils/fetchUserProfile.js"
