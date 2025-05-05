@@ -1,0 +1,36 @@
+name: CI - Harmony Hub
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  run-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🧼 Lint code
+        run: npm run lint
+
+      - name: 🧪 Run unit tests with Vitest
+        run: npm run test
+
+      - name: 🏗 Build project
+        run: npm run build
+
+      # Optional: Enable code coverage report
+      # - name: 📊 Collect coverage
+      #   run: npm run coverage
