@@ -1,6 +1,6 @@
 import { useAuth } from "./AuthContext"
 import { useState } from "react"
-import Login from "./LogIn"
+import Login from "./Login"
 import Register from "./Register"
 
 function AuthModal() {

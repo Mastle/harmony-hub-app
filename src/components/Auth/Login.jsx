@@ -1,9 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { useAuth } from "./AuthContext"
+import { useAuth } from "./AuthContext.jsx"
 import { supabase } from "../../supabaseClient.js"
-import { fetchUserProfile } from "../../utils/fetchUserProfile"
+import { fetchUserProfile } from "../../utils/fetchUserProfile.js"
 
 export default function Login() {
   const [email, setEmail] = useState("")
