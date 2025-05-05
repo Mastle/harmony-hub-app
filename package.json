@@ -10,7 +10,6 @@
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage"
-
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.0",
@@ -38,6 +37,7 @@
     "cypress": "^14.3.2",
     "daisyui": "^5.0.30",
     "eslint": "^9.25.1",
+    "eslint-plugin-cypress": "^4.3.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",

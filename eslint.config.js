@@ -1,8 +1,9 @@
-import js from "@eslint/js";
-import globals from "globals";
-import react from "eslint-plugin-react";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
+import js from "@eslint/js"
+import globals from "globals"
+import react from "eslint-plugin-react"
+import reactHooks from "eslint-plugin-react-hooks"
+import reactRefresh from "eslint-plugin-react-refresh"
+import cypress from "eslint-plugin-cypress" // <-- Import the Cypress plugin
 
 export default [
   { ignores: ["dist"] },
@@ -10,7 +11,10 @@ export default [
     files: ["**/*.{js,jsx}"],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: {
+        ...globals.browser, // Retain browser globals
+        ...globals.cypress, // Add Cypress globals
+      },
       parserOptions: {
         ecmaVersion: "latest",
         ecmaFeatures: { jsx: true },
@@ -22,6 +26,7 @@ export default [
       react,
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
+      cypress, // <-- Add the Cypress plugin
     },
     rules: {
       ...js.configs.recommended.rules,
@@ -33,6 +38,15 @@ export default [
         "warn",
         { allowConstantExport: true },
       ],
+      ...cypress.configs.recommended.rules, // <-- Add Cypress recommended rules
     },
   },
-];
+  {
+    files: ["cypress/**/*.js", "cypress/**/*.ts"], // <-- Override for Cypress files
+    env: {
+      "cypress/globals": true, // Enable Cypress globals for test files
+    },
+    plugins: ["cypress"], // Enable Cypress plugin in test files
+    extends: ["plugin:cypress/recommended"], // Use Cypress recommended config
+  },
+]
