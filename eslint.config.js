@@ -1,52 +1,70 @@
+// eslint.config.js
 import js from "@eslint/js"
 import globals from "globals"
 import react from "eslint-plugin-react"
 import reactHooks from "eslint-plugin-react-hooks"
 import reactRefresh from "eslint-plugin-react-refresh"
-import cypress from "eslint-plugin-cypress" // <-- Import the Cypress plugin
+import pluginCypress from "eslint-plugin-cypress/flat"
 
 export default [
+  // 1. Ignore built files
   { ignores: ["dist"] },
+
+  // 2. Base app files (.js/.jsx/.ts/.tsx)
   {
-    files: ["**/*.{js,jsx}"],
+    files: ["**/*.{js,jsx,ts,tsx}"],
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: {
-        ...globals.browser, // Retain browser globals
-        ...globals.cypress, // Add Cypress globals
-      },
+      ecmaVersion: "latest",
+      sourceType: "module",
       parserOptions: {
-        ecmaVersion: "latest",
         ecmaFeatures: { jsx: true },
-        sourceType: "module",
+      },
+      globals: {
+        ...globals.browser,
       },
     },
-    settings: { react: { version: "19" } },
+    settings: {
+      react: { version: "19" },
+    },
     plugins: {
       react,
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
-      cypress, // <-- Add the Cypress plugin
     },
     rules: {
       ...js.configs.recommended.rules,
       ...react.configs.recommended.rules,
       ...react.configs["jsx-runtime"].rules,
       ...reactHooks.configs.recommended.rules,
+      "react/prop-types": "off",
       "react/jsx-no-target-blank": "off",
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true },
       ],
-      ...cypress.configs.recommended.rules, // <-- Add Cypress recommended rules
     },
   },
+
+  // 3. Cypress test files
   {
-    files: ["cypress/**/*.js", "cypress/**/*.ts"], // <-- Override for Cypress files
-    env: {
-      "cypress/globals": true, // Enable Cypress globals for test files
+    files: ["cypress/**/*.js", "cypress/**/*.ts"],
+    ...pluginCypress.configs.recommended,
+  },
+
+  // 4. Vitest unit tests
+  {
+    files: ["**/__tests__/**/*.{js,jsx,ts,tsx}", "**/*.test.{js,jsx,ts,tsx}"],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        describe: true,
+        it: true,
+        test: true,
+        expect: true,
+        beforeEach: true,
+        afterEach: true,
+        vi: true,
+      },
     },
-    plugins: ["cypress"], // Enable Cypress plugin in test files
-    extends: ["plugin:cypress/recommended"], // Use Cypress recommended config
   },
 ]

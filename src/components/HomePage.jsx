@@ -16,8 +16,8 @@ const HomePage = () => {
             and bring melodies to life—no experience needed!
           </p>
           <p className="text-xl mb-2">
-            Whether you're a beginner or a seasoned musician, Harmony Hub lets
-            you explore sounds effortlessly—right from your browser.
+            Whether you&apos;re a beginner or a seasoned musician, Harmony Hub
+            lets you explore sounds effortlessly—right from your browser.
           </p>
           <p className="text-xl">
             Try out the piano, record your tunes, and let creativity flow! Ready

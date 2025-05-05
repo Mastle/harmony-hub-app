@@ -1,9 +1,10 @@
 "use client"
 
-import { useState, useEffect } from "react"
+// import { useState } from "react"
 
-export default function SongList({ setCurrentSong }) {
-  const [songs, setSongs] = useState([])
+//setCurrentSong has to be passed in as a prop
+export default function SongList() {
+  // const [songs, setSongs] = useState([])
 
   // useEffect(() => {
   //   fetch('http://localhost:3001/songs')
@@ -14,7 +15,7 @@ export default function SongList({ setCurrentSong }) {
   return (
     <div className="bg-primary-content shadow-md rounded-lg overflow-hidden">
       <h2 className="text-primary text-xl font-bold p-4">Songs</h2>
-      <ul className="divide-y divide-gray-200">
+      {/* <ul className="divide-y divide-gray-200">
         {songs.map((song) => (
           <li
             key={song.id}
@@ -38,7 +39,7 @@ export default function SongList({ setCurrentSong }) {
             </div>
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   )
 }

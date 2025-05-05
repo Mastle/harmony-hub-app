@@ -28,9 +28,6 @@ describe("Harmony Hub MVP - Smoke Test", () => {
     // Simulate playing a note (press a key)
     cy.get("body").type("q") // simulates pressing "q" key
 
-    // (Optional) Add a small wait to simulate playing
-    cy.wait(500)
-
     // Log out
     cy.contains("Logout").click()
 
